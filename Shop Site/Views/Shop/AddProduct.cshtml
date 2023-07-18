@@ -1,12 +1,28 @@
 ﻿@model AddProductViewModel
 
-<form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
-    <input asp-for="Title" placeholder="Title" /> <br />
-    <textarea asp-for="Description" placeholder="Description...."></textarea> <br />
-    <input type="file" asp-for="ImageUrl" /><br />
-    <select asp-for="CategoryId" asp-items="@ViewBag.Categories"></select> <br />
-    <select asp-for="BrandId" asp-items="@ViewBag.Categories"></select> <br />
-    <input type="submit" />
 
 
-</form>
+<div class="d-flex justify-content-center">
+    <form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+        <label  asp-for="Title">Title<span>*</span></label>
+        <div class="pd">
+            <input asp-for="Title" type="text" placeholder="Title"/>
+        </div>
+
+        <label asp-for="Price">Price<span>*</span></label>
+        <div class="pd">
+            <input asp-for="Price" placeholder="Price" />
+        </div>
+
+        <div>
+            <select asp-for="BrandId" asp-items="@ViewBag.Brands">Select Brand</select>
+            <select asp-for="CategoryId" asp-items="@ViewBag.Categories"> Select Category</select>
+        </div>
+        <label for="Description">Description<span>*</span></label>
+        <div class="pd">
+            <input asp-for="Description" type="text" placeholder="Description" />
+        </div>
+        <button class="" type="submit" href="/">APPLY</button>
+    </form>
+</div>
+

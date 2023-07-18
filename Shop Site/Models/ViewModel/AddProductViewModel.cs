@@ -1,4 +1,6 @@
-﻿namespace Shop_Site.Models.ViewModel
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace Shop_Site.Models.ViewModel
 {
     public class AddProductViewModel
     {

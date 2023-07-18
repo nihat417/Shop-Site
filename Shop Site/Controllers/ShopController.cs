@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 using Shop_Site.Helpers;
 using Shop_Site.Models;
@@ -17,11 +19,13 @@ namespace Shop_Site.Controllers
 
         public IActionResult Index()
         {
-            return View(context.products.ToList());
+            return View(context.Products.ToList());
         }
 
         public IActionResult AddProduct()
         {
+            ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
+            ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
             return View();
         }
 
@@ -36,7 +40,6 @@ namespace Shop_Site.Controllers
                     Title = vm.Title,
                     Description = vm.Description,
                     Price = vm.Price,
-                    
                     CategoryId = vm.CategoryId,
                     BrandId = vm.BrandId,
                 };

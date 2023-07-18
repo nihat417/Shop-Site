@@ -13,18 +13,24 @@ namespace Shop_Site.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Products>()
-                .HasOne(c => c.category).WithMany(p => p.Product)
-                .HasForeignKey(p => p.CategoryId).OnDelete(DeleteBehavior.Cascade);
+           modelBuilder.Entity<Brand>().HasData(
+               new Brand { Id = 1, Name = "SUPREME", CreatedDate = DateTime.Now},
+               new Brand { Id = 2, Name = "OFF-WHITE", CreatedDate = DateTime.Now },
+               new Brand { Id = 3, Name = "STUSSY", CreatedDate = DateTime.Now },
+               new Brand { Id = 4, Name = "VETEMENTS", CreatedDate = DateTime.Now }
+                );
 
-            modelBuilder.Entity<Products>()
-                .HasOne(b=>b.brand).WithMany(p => p.Product)
-                .HasForeignKey(p=>p.BrandId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Bloomers", CreatedDate = DateTime.Now },
+                new Category { Id = 2, Name = "Blouse", CreatedDate = DateTime.Now },
+                new Category { Id = 3, Name = "Bodysuit", CreatedDate = DateTime.Now },
+                new Category { Id = 4, Name = "Coat", CreatedDate = DateTime.Now }
+                );
         }
 
-        public DbSet<Products>products { get; set; }
-        public DbSet<Category>categories { get; set; }
-        public DbSet<Brand> brands { get; set; }
+        public DbSet<Products>Products { get; set; }
+        public DbSet<Category>Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
     }
 }
