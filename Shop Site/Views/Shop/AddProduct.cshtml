@@ -1,0 +1,12 @@
+﻿@model AddProductViewModel
+
+<form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+    <input asp-for="Title" placeholder="Title" /> <br />
+    <textarea asp-for="Description" placeholder="Description...."></textarea> <br />
+    <input type="file" asp-for="ImageUrl" /><br />
+    <select asp-for="CategoryId" asp-items="@ViewBag.Categories"></select> <br />
+    <select asp-for="BrandId" asp-items="@ViewBag.Categories"></select> <br />
+    <input type="submit" />
+
+
+</form>

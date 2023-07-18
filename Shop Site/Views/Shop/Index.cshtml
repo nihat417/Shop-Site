@@ -1,0 +1,18 @@
+﻿@model List<Products>
+
+
+<ul>
+    @foreach (var product in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img src="~/@product.ImageUrl" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+                <p class="card-text">@product.Description</p>
+                <p class="card-text">@product.category?.Name</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+
+            </div>
+        </div>
+    }
+</ul>
