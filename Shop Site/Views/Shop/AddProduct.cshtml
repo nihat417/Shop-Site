@@ -4,22 +4,25 @@
 
 <div class="d-flex justify-content-center">
     <form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
-        <label  asp-for="Title">Title<span>*</span></label>
-        <div class="pd">
+        <label class="pd10" asp-for="Title">Title<span>*</span></label>
+        <div>
             <input asp-for="Title" type="text" placeholder="Title"/>
         </div>
 
-        <label asp-for="Price">Price<span>*</span></label>
-        <div class="pd">
+        <label class="pd10" asp-for="Price">Price<span>*</span></label>
+        <div>
             <input asp-for="Price" placeholder="Price" />
         </div>
 
-        <div>
+        <div class="pd15">
             <select asp-for="BrandId" asp-items="@ViewBag.Brands">Select Brand</select>
             <select asp-for="CategoryId" asp-items="@ViewBag.Categories"> Select Category</select>
         </div>
-        <label for="Description">Description<span>*</span></label>
-        <div class="pd">
+        <div class="pd5">
+            <input type="file" asp-for="ImageUrl" /><br />
+        </div>
+        <label class="pd5" for="Description">Description<span>*</span></label>
+        <div class="pd10">
             <input asp-for="Description" type="text" placeholder="Description" />
         </div>
         <button class="" type="submit" href="/">APPLY</button>

@@ -34,9 +34,10 @@ namespace Shop_Site.Controllers
         {
             try
             {
-                //string path= await UploadFileHelper.UploadFile(vm.ImageUrl);
+                string path= await UploadFileHelper.UploadFile(vm.ImageUrl);
                 Products product = new()
                 {
+                    ImageUrl = path,
                     Title = vm.Title,
                     Description = vm.Description,
                     Price = vm.Price,
