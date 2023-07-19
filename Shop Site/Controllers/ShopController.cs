@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 using Shop_Site.Helpers;
 using Shop_Site.Models;
@@ -29,7 +28,7 @@ namespace Shop_Site.Controllers
                 var product = await context.Products.FindAsync(id);
                 if (product == null)
                 {
-                    return NotFound(); // Product with the specified ID not found
+                    return NotFound(); 
                 }
 
                 context.Products.Remove(product);
@@ -38,11 +37,9 @@ namespace Shop_Site.Controllers
             }
             catch (Exception)
             {
-                return View("Error"); // Assuming you have an "Error.cshtml" view to show errors
+                return View("Error"); 
             }
         }
-
-
 
         public IActionResult AddProduct()
         {
@@ -54,11 +51,11 @@ namespace Shop_Site.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel vm)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    string path = await UploadFileHelper.UploadFile(vm.ImageUrl);
+                    string path = (vm.ImageUrl != null) ? await UploadFileHelper.UploadFile(vm.ImageUrl) : "";
                     Products product = new()
                     {
                         ImageUrl = path,
@@ -77,7 +74,9 @@ namespace Shop_Site.Controllers
                     return View("error.cshtml");
                 }
             }
-            return RedirectToAction("AddProduct");
+            ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
+            ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
+            return View(vm);
         }
 
     }

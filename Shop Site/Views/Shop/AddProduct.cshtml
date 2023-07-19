@@ -13,8 +13,8 @@
         <label class="pd10" asp-for="Price">Price<span>*</span></label>
         <div>
             <input asp-for="Price" placeholder="Price" />
+            <span asp-validation-for="Price" class="fgred" ></span>
         </div>
-        <span asp-validation-for="Price" class="fgred" ></span>
 
         <div class="pd15">
             <select asp-for="BrandId" asp-items="@ViewBag.Brands">Select Brand</select>
