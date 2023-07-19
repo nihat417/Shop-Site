@@ -7,12 +7,14 @@
         <label class="pd10" asp-for="Title">Title<span>*</span></label>
         <div>
             <input asp-for="Title" type="text" placeholder="Title"/>
+            <span asp-validation-for="Title" class="fgred" ></span>
         </div>
 
         <label class="pd10" asp-for="Price">Price<span>*</span></label>
         <div>
             <input asp-for="Price" placeholder="Price" />
         </div>
+        <span asp-validation-for="Price" class="fgred" ></span>
 
         <div class="pd15">
             <select asp-for="BrandId" asp-items="@ViewBag.Brands">Select Brand</select>
@@ -25,6 +27,7 @@
         <div class="pd10">
             <input asp-for="Description" type="text" placeholder="Description" />
         </div>
+
         <button class="" type="submit" href="/">APPLY</button>
     </form>
 </div>

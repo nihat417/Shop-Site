@@ -74,11 +74,26 @@ input[type="checkbox"] {
     padding:15px 0;
 }
 
+.productcontainer{
+    display:flex;
+    flex-direction:row;
+}
+
+.productcontainer .card{
+    margin:15px 20px;
+}
+
+.fgred{
+    color:red;
+}
+
+
 @media (max-width: 1000px) {
     nav {
         padding: 0 40px 0 50px;
     }
 }
+
 
 @media (max-width: 920px) {
     nav .menu-btn i {
