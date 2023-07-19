@@ -1,21 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
-using Shop_Site.Data.Repositories;
 using Shop_Site.Helpers;
 using Shop_Site.Models;
 using Shop_Site.Models.ViewModel;
-using System.Collections.Generic;
 
 namespace Shop_Site.Controllers
 {
     public class ShopController : Controller
     {
         private readonly AppDbContext context;
-        private readonly DbSet<Products> dbset;
-
 
         public ShopController(AppDbContext context)
         {
@@ -27,7 +22,27 @@ namespace Shop_Site.Controllers
             return View(context.Products.ToList());
         }
 
-        
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            try
+            {
+                var product = await context.Products.FindAsync(id);
+                if (product == null)
+                {
+                    return NotFound(); // Product with the specified ID not found
+                }
+
+                context.Products.Remove(product);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error"); // Assuming you have an "Error.cshtml" view to show errors
+            }
+        }
+
+
 
         public IActionResult AddProduct()
         {
