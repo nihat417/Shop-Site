@@ -1,19 +1,17 @@
 ﻿@model AddProductViewModel
 
-
-
 <div class="d-flex justify-content-center">
     <form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
         <label class="pd10" asp-for="Title">Title<span>*</span></label>
         <div>
-            <input asp-for="Title" type="text" placeholder="Title"/>
-            <span asp-validation-for="Title" class="fgred" ></span>
+            <input asp-for="Title" type="text" placeholder="Title" />
+            <span asp-validation-for="Title" class="fgred"></span>
         </div>
 
         <label class="pd10" asp-for="Price">Price<span>*</span></label>
         <div>
             <input asp-for="Price" placeholder="Price" />
-            <span asp-validation-for="Price" class="fgred" ></span>
+            <span asp-validation-for="Price" class="fgred"></span>
         </div>
 
         <div class="pd15">
