@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
 * {
     margin: 0;
@@ -18,38 +18,38 @@ nav {
     flex-wrap: wrap;
 }
 
-nav .logo {
-    color: #fff;
-    font-size: 35px;
-    font-weight: 600;
-}
+    nav .logo {
+        color: #fff;
+        font-size: 35px;
+        font-weight: 600;
+    }
 
-nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-}
+    nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+    }
 
-nav ul li {
-    margin: 0 5px;
-}
+        nav ul li {
+            margin: 0 5px;
+        }
 
-nav ul li a {
-    color: #f2f2f2;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 8px 15px;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
+            nav ul li a {
+                color: #f2f2f2;
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: 500;
+                padding: 8px 15px;
+                border-radius: 5px;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+            }
 
-nav ul li a.active,
-nav ul li a:hover {
-    color: #111;
-    background: #fff;
-}
+                nav ul li a.active,
+                nav ul li a:hover {
+                    color: #111;
+                    background: #fff;
+                }
 
     nav .menu-btn i {
         color: #fff;
@@ -66,139 +66,27 @@ input[type="checkbox"] {
     padding: 5px 0;
 }
 
-.pd10{
-    padding:10px 0;
+.pd10 {
+    padding: 10px 0;
 }
 
-.pd15{
-    padding:15px 0;
+.pd15 {
+    padding: 15px 0;
 }
 
-.productcontainer{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
-}
-
-.productcontainer .card{
-    margin:15px 20px;
-}
-
-.fgred{
-    color:red;
-}
-
-
-
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
-$base-spacing-unit: 24px;
-$half-spacing-unit: $base-spacing-unit / 2;
-
-$color-alpha: #1772FF;
-$color-form-highlight: #EEEEEE;
-
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-
-body {
-    padding: $base-spacing-unit;
-    font-family: 'Source Sans Pro', sans-serif;
-    margin: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-}
-
-.container {
-    max-width: 1000px;
-    margin-right: auto;
-    margin-left: auto;
+.productcontainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.table {
-    width: 100%;
-    border: 1px solid $color-form-highlight;
+    .productcontainer .card {
+        margin: 15px 20px;
+    }
+
+.fgred {
+    color: red;
 }
-
-.table-header {
-    display: flex;
-    width: 100%;
-    background: #000;
-    padding: ($half-spacing-unit * 1.5) 0;
-}
-
-.table-row {
-    display: flex;
-    width: 100%;
-    padding: ($half-spacing-unit * 1.5) 0;
-    &:nth-of-type(odd)
-
-{
-    background: $color-form-highlight;
-}
-
-}
-
-.table-data, .header__item {
-    flex: 1 1 20%;
-    text-align: center;
-}
-
-.header__item {
-    text-transform: uppercase;
-}
-
-.filter__link {
-    color: white;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-    padding-left: $base-spacing-unit;
-    padding-right: $base-spacing-unit;
-    &::after
-
-{
-    content: '';
-    position: absolute;
-    right: -($half-spacing-unit * 1.5);
-    color: white;
-    font-size: $half-spacing-unit;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-&.desc::after {
-    content: '(desc)';
-}
-
-&.asc::after {
-    content: '(asc)';
-}
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -217,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
     #click:checked ~ .menu-btn i:before {
         content: "\f00d";
     }
-    
+
     nav ul {
         position: fixed;
         top: 80px;
@@ -229,32 +117,31 @@ h1, h2, h3, h4, h5, h6 {
         display: block;
         transition: all 0.3s ease;
     }
-    
+
     #click:checked ~ ul {
         left: 0;
     }
-    
+
     nav ul li {
         width: 100%;
         margin: 40px 0;
     }
-    
-    nav ul li a {
-        width: 100%;
-        margin-left: -100%;
-        display: block;
-        font-size: 20px;
-        transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-    
+
+        nav ul li a {
+            width: 100%;
+            margin-left: -100%;
+            display: block;
+            font-size: 20px;
+            transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
     #click:checked ~ ul li a {
         margin-left: 0px;
     }
-    
+
     nav ul li a.active,
     nav ul li a:hover {
         background: none;
         color: cyan;
     }
 }
-
