@@ -84,12 +84,11 @@ namespace Shop_Site.Controllers
                 try
                 {
                     var product = await context.Products.FirstOrDefaultAsync(p => p.Id == vm.Id);
-                    string path =  await UploadFileHelper.UploadFile(vm.ImageUrl);
+
                     if (product == null)
                     {
                         return NotFound(); 
                     }
-                    product.ImageUrl = path;
                     product.Title = vm.Title;
                     product.Description = vm.Description;
                     product.Price = vm.Price;

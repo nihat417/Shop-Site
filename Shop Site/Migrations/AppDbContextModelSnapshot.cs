@@ -47,25 +47,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1351),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9522),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1359),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9531),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1360),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9555),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1360),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9558),
                             Name = "VETEMENTS"
                         });
                 });
@@ -92,25 +92,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1423),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9634),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1424),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1424),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 7, 18, 23, 6, 1, 835, DateTimeKind.Local).AddTicks(1425),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9636),
                             Name = "Coat"
                         });
                 });

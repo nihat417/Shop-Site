@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop_Site.Migrations
 {
     /// <inheritdoc />
-    public partial class mig : Migration
+    public partial class mih1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,10 +77,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4685), "SUPREME" },
-                    { 2, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4693), "OFF-WHITE" },
-                    { 3, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4693), "STUSSY" },
-                    { 4, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4694), "VETEMENTS" }
+                    { 1, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9522), "SUPREME" },
+                    { 2, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9531), "OFF-WHITE" },
+                    { 3, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9555), "STUSSY" },
+                    { 4, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9558), "VETEMENTS" }
                 });
 
             migrationBuilder.InsertData(
@@ -88,10 +88,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4759), "Bloomers" },
-                    { 2, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4760), "Blouse" },
-                    { 3, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4760), "Bodysuit" },
-                    { 4, new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4761), "Coat" }
+                    { 1, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9634), "Bloomers" },
+                    { 2, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635), "Blouse" },
+                    { 3, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635), "Bodysuit" },
+                    { 4, new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9636), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(

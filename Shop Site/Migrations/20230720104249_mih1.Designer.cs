@@ -12,8 +12,8 @@ using Shop_Site.Data;
 namespace Shop_Site.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230718145746_mig")]
-    partial class mig
+    [Migration("20230720104249_mih1")]
+    partial class mih1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,25 +50,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4685),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9522),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4693),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9531),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4693),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9555),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4694),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9558),
                             Name = "VETEMENTS"
                         });
                 });
@@ -95,25 +95,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4759),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9634),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4760),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4760),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9635),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 7, 18, 18, 57, 46, 158, DateTimeKind.Local).AddTicks(4761),
+                            CreatedDate = new DateTime(2023, 7, 20, 14, 42, 49, 485, DateTimeKind.Local).AddTicks(9636),
                             Name = "Coat"
                         });
                 });
