@@ -11,7 +11,7 @@
 			<div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Price</a></div>
 			<div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Brand</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Category</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Add</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="/Admin/AddProduct">Add</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Edit</a></div>
 			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Delete</a></div>
 		</div>
@@ -23,7 +23,7 @@
 					<div class="table-data">@products.Price</div>
 					<div class="table-data">@products.brand.Name</div>
 					<div class="table-data">@products.category.Name</div>
-					<div class="table-data"><a class="btn btn-warning" href="/Shop/DeleteProduct/@products.Id">Add</a></div>
+					<div class="table-data"><a class="btn btn-warning" href="/Admin/AddProduct/@products.Id">Add</a></div>
 					<div class="table-data"><a class="btn btn-warning" href="/Admin/EditProduct/@products.Id">Edit</a></div>
 					<div class="table-data"><a class="btn btn-warning" href="/Admin/DeleteProduct/@products.Id">Delete</a></div>
 				</div>
