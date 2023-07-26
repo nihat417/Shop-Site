@@ -1,7 +1,7 @@
 ﻿@model AddProductViewModel
 
 <div class="d-flex justify-content-center">
-    <form asp-controller="Shop" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+    <form asp-area="Admin" asp-controller="Admin" asp-action="AddProduct" method="post" enctype="multipart/form-data">
         <label class="pd10" asp-for="Title">Title<span>*</span></label>
         <div>
             <input asp-for="Title" type="text" placeholder="Title" />
