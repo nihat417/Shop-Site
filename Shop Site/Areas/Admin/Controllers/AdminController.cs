@@ -110,7 +110,7 @@ namespace Shop_Site.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AddProductViewModel vm)
+        public async Task<IActionResult> EditProduct(AddProductViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -140,6 +140,5 @@ namespace Shop_Site.Areas.Admin.Controllers
             ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
             return View(vm);
         }
-    
     }
 }
