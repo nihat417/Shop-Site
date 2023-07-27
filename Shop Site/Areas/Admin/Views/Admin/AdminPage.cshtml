@@ -24,8 +24,8 @@
 					<div class="table-data">@products.brand.Name</div>
 					<div class="table-data">@products.category.Name</div>
 					<div class="table-data"><a class="btn btn-warning" href="/foradmin/Admin/AddProduct">Add</a></div>
-					<div class="table-data"><a class="btn btn-warning" href="/foradmin/Admin/EditProduct/@products.Id">Edit</a></div>
-					<div class="table-data"><a class="btn btn-warning" href="/foradmin/Admin/DeleteProduct/@products.Id">Delete</a></div>
+					<div class="table-data"><a class="btn btn-warning" href="@Url.Action("EditProduct"  ,"Admin", new { area = "Admin",  id = products.Id })">Edit</a></div>
+					<div class="table-data"><a class="btn btn-warning" href="@Url.Action("DeleteProduct","Admin", new { area = "Admin" , id = products.Id })">Delete</a></div>
 				</div>
 			</div>
 		}
