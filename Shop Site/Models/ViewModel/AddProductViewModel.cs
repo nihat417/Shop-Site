@@ -13,8 +13,8 @@ namespace Shop_Site.Models.ViewModel
         public decimal Price { get; set; }
         public string? Description { get; set; }
         public IFormFile? ImageUrl { get; set; }
-        public int CategoryId { get; set; }
-        public int BrandId { get; set; }
-        public int Id { get; set; }
+        public string CategoryId { get; set; } = null!;
+        public string BrandId { get; set; } = null!;
+        public string Id { get; set; } = Guid.NewGuid().ToString();
     }
 }

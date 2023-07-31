@@ -24,7 +24,7 @@ namespace Shop_Site.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(string id)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Shop_Site.Areas.Admin.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> EditProduct(int Id)
+        public async Task<IActionResult> EditProduct(string Id)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace Shop_Site.Areas.Admin.Controllers
                 {
                     var product = await context.Products.FirstOrDefaultAsync(p => p.Id == vm.Id);
 
-                    if (product == null)
+					if (product == null)
                     {
                         return NotFound();
                     }
