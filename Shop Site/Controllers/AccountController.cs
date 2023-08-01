@@ -85,9 +85,10 @@ namespace Shop_Site.Controllers
 			return View(vm);
 		}
 
-		public ActionResult Logout()
+		public async Task<ActionResult> Logout()
 		{
-			return View();
+			await signInManager.SignOutAsync();
+			return RedirectToAction("Login");
 		}
 	}
 }

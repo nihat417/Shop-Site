@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Shop_Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly AppDbContext context;

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
+using Shop_Site.Helpers;
 using Shop_Site.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,6 @@ app.UseEndpoints(endpoints =>
 	pattern: "{controller=Shop}/{action=Index}/{id?}");
 });
 
-
+await SeedData.InitializeAsync(app.Services);
 
 app.Run();
