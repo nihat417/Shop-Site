@@ -1,13 +1,17 @@
 ﻿<nav>
     <div class="logo">
-        Brand
+        <a asp-area="" asp-controller="Shop" asp-action="Index">Online Shop</a>
     </div>
     <input type="checkbox" id="click">
     <label for="click" class="menu-btn">
         <i class="fas fa-bars"></i>
     </label>
     <ul>
-        <li><a asp-area="" asp-controller="Shop" asp-action="Index">Home</a></li>
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <li style="color:cadetblue"><a>@User.Identity.Name</a></li>
+            <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+        }
     </ul>
 </nav>
 

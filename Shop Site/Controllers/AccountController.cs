@@ -68,6 +68,11 @@ namespace Shop_Site.Controllers
 
                         if (result.Succeeded)
                         {
+							if(await userManager.IsInRoleAsync(user,"Admin"))
+							{
+								return Redirect("/foradmin");
+							}
+
                             if (!string.IsNullOrWhiteSpace(ReturnUrl))
                                 return Redirect(ReturnUrl);
                             return Redirect("/");
@@ -88,7 +93,8 @@ namespace Shop_Site.Controllers
 		public async Task<ActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
-			return RedirectToAction("Login");
-		}
-	}
+            return RedirectToAction("Login", "Account", new { area = "" });
+
+        }
+    }
 }
