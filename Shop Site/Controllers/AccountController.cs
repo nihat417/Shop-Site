@@ -5,21 +5,21 @@ using Shop_Site.Models.ViewModel;
 
 namespace Shop_Site.Controllers
 {
-	public class AccauntController : Controller
+	public class AccountController : Controller
 	{
 		private readonly UserManager<AppUser> userManager;
 		private readonly SignInManager<AppUser> signInManager;
 
-		public AccauntController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+		public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 		}
 
-		[Route("Accaunt/Register")]
+
 		public IActionResult Register() =>View();
 
-        [Route("Accaunt/Register")]
+        
         [HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel vm)
 		{
@@ -46,14 +46,14 @@ namespace Shop_Site.Controllers
 			return View(vm);
 		}
 
-		[Route("Accaunt/Login")]
+		
 		public IActionResult Login(string ReturnUrl) 
 		{
 			ViewBag.ReturnUrl = ReturnUrl;
 			return View();
 		}
 
-		[Route("Accaunt/Login")]
+		
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel vm,string? ReturnUrl)
 		{
