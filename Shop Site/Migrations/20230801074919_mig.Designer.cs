@@ -12,8 +12,8 @@ using Shop_Site.Data;
 namespace Shop_Site.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230731172908_migration12")]
-    partial class migration12
+    [Migration("20230801074919_mig")]
+    partial class mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,8 +173,8 @@ namespace Shop_Site.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CreatedDate")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -252,25 +252,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5827),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1570),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5837),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1582),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5838),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1585),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5838),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1587),
                             Name = "VETEMENTS"
                         });
                 });
@@ -294,25 +294,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5909),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1656),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5910),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1668),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5911),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1670),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 7, 31, 21, 29, 8, 397, DateTimeKind.Local).AddTicks(5911),
+                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1672),
                             Name = "Coat"
                         });
                 });

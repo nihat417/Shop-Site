@@ -19,18 +19,41 @@ namespace Shop_Site.Controllers
 		[Route("Accaunt/Register")]
 		public IActionResult Register() =>View();
 
-		public async Task<IActionResult> Register(AddProductViewModel viewModel)
+        [Route("Accaunt/Register")]
+        [HttpPost]
+		public async Task<IActionResult> Register(RegisterViewModel vm)
 		{
-			return View();
+			if(ModelState.IsValid)
+			{
+				AppUser user = new()
+				{
+					FullName = vm.UserName,
+					UserName = vm.UserName,
+					Email = vm.Email,
+					CreatedDate=DateTime.Now
+				};
+				var result=await userManager.CreateAsync(user,vm.Password);
+				if(result.Succeeded)
+				{
+                    await signInManager.SignInAsync(user, false);
+					return RedirectToAction("Index", "Shop");
+                }
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.Code, item.Description);
+                }
+            }
+			return View(vm);
 		}
 
 		[Route("Accaunt/Login")]
-		public IActionResult Login() 
+		public IActionResult Login(string ReturnUrl) 
 		{
+			ViewBag.ReturnUrl = ReturnUrl;
 			return View();
 		}
 
-		public async Task<IActionResult> Login(AddProductViewModel viewModel)
+		public async Task<IActionResult> Login(LoginViewModel vm)
 		{
 			return View();
 		}
