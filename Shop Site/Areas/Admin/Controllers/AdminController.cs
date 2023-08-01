@@ -5,10 +5,12 @@ using Shop_Site.Helpers;
 using Shop_Site.Models.ViewModel;
 using Shop_Site.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shop_Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly AppDbContext context;
