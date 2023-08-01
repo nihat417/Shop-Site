@@ -16,6 +16,7 @@ namespace Shop_Site.Controllers
 			this.signInManager = signInManager;
 		}
 
+		[Route("Accaunt/Register")]
 		public IActionResult Register() =>View();
 
 		public async Task<IActionResult> Register(AddProductViewModel viewModel)
