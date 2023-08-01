@@ -53,9 +53,36 @@ namespace Shop_Site.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> Login(LoginViewModel vm)
+		[Route("Accaunt/Login")]
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel vm,string? ReturnUrl)
 		{
-			return View();
+			if(ModelState.IsValid)
+			{
+				var user =await userManager.FindByEmailAsync(vm.Email);
+				if (user is not null)
+				{
+					if(await userManager.IsEmailConfirmedAsync(user))
+					{
+                        var result = await signInManager.PasswordSignInAsync(user, vm.Password, vm.RememberMe, true);
+
+                        if (result.Succeeded)
+                        {
+                            if (!string.IsNullOrWhiteSpace(ReturnUrl))
+                                return Redirect(ReturnUrl);
+                            return Redirect("/");
+                        }
+                        else if (result.IsLockedOut)
+                            ModelState.AddModelError("All", "Lockout");
+                    }
+                    else
+                        ModelState.AddModelError("All", "Mail has not confired yet!!");
+                }
+                else
+                    ModelState.AddModelError("login", "Incorrect username or password");
+            }
+
+			return View(vm);
 		}
 
 		public ActionResult Logout()
