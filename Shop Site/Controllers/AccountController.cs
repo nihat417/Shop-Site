@@ -2,18 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop_Site.Models;
 using Shop_Site.Models.ViewModel;
+using Shop_Site.Repository;
 
 namespace Shop_Site.Controllers
 {
-	public class AccountController : Controller
+    public class AccountController : Controller
 	{
 		private readonly UserManager<AppUser> userManager;
 		private readonly SignInManager<AppUser> signInManager;
+		private readonly IEmailService _emailService;
 
-		public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+		public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager,IEmailService _emailService)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
+			this._emailService = _emailService;
 		}
 
 
@@ -35,8 +38,16 @@ namespace Shop_Site.Controllers
 				var result=await userManager.CreateAsync(user,vm.Password);
 				if(result.Succeeded)
 				{
-                    await signInManager.SignInAsync(user, false);
-					return RedirectToAction("Index", "Shop");
+					var token=await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Authentication",new { token, email = user.Email },
+					protocol: HttpContext.Request.Scheme,
+					host: "localhost:7027");
+
+                    var message = new Message(new string[] { user.Email }, "Confirmation Email Link", confirmationLink!);
+                    _emailService.SendEmail(message);
+                    return StatusCode(StatusCodes.Status200OK, new { Status = "success", Message = "Email sent for verification" });
+                    //await signInManager.SignInAsync(user, false);
+                    //return RedirectToAction("Index", "Shop");
                 }
                 foreach (var item in result.Errors)
                 {
@@ -96,5 +107,20 @@ namespace Shop_Site.Controllers
             return RedirectToAction("Login", "Account", new { area = "" });
 
         }
+
+		[HttpGet]
+		public async Task<IActionResult>ConfirmEmail(string token,string email)
+		{
+			var user=await userManager.FindByEmailAsync(email);
+			if(user != null)
+			{
+				var result = await userManager.ConfirmEmailAsync(user, token);
+				if (result.Succeeded)
+				{
+					return StatusCode(StatusCodes.Status200OK, new { Status = "succses" , Message = "Email Vertifed sucses"});
+				}
+			}
+			return StatusCode(StatusCodes.Status500InternalServerError , new { Status = "Error", Message = "Email not Vertifed" });
+		}
     }
 }

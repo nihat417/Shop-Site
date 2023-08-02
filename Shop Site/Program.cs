@@ -1,8 +1,11 @@
+using MailKit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 using Shop_Site.Helpers;
 using Shop_Site.Models;
+using Shop_Site.Repository;
+using Shop_Site.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(op=>op.SignIn.RequireConfirmedEmail = true);
+
+var emailConfig=builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+
+builder.Services.AddSingleton(emailConfig);
+builder.Services.AddScoped<IEmailService,EmailService>();
 
 var app = builder.Build();
 
