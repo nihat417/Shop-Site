@@ -21,6 +21,7 @@ namespace Shop_Site.Controllers
 
 
 		public IActionResult Register() =>View();
+		
 
         
         [HttpPost]
@@ -37,17 +38,14 @@ namespace Shop_Site.Controllers
 				};
 				var result=await userManager.CreateAsync(user,vm.Password);
 				if(result.Succeeded)
-				{
+                {
 					var token=await userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = Url.Action("ConfirmEmail", "Authentication",new { token, email = user.Email },
-					protocol: HttpContext.Request.Scheme,
-					host: "localhost:7027");
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account",new { token, email = user.Email },Request.Scheme);
 
                     var message = new Message(new string[] { user.Email }, "Confirmation Email Link", confirmationLink!);
                     _emailService.SendEmail(message);
-                    return StatusCode(StatusCodes.Status200OK, new { Status = "success", Message = "Email sent for verification" });
-                    //await signInManager.SignInAsync(user, false);
-                    //return RedirectToAction("Index", "Shop");
+					var nwvm = new RegisterViewModel { UserName=user.UserName };
+					return View("RegisterFinish",nwvm);
                 }
                 foreach (var item in result.Errors)
                 {
@@ -109,18 +107,19 @@ namespace Shop_Site.Controllers
         }
 
 		[HttpGet]
-		public async Task<IActionResult>ConfirmEmail(string token,string email)
+        public async Task<IActionResult>ConfirmEmail(string token,string email)
 		{
 			var user=await userManager.FindByEmailAsync(email);
 			if(user != null)
 			{
 				var result = await userManager.ConfirmEmailAsync(user, token);
-				if (result.Succeeded)
-				{
-					return StatusCode(StatusCodes.Status200OK, new { Status = "succses" , Message = "Email Vertifed sucses"});
-				}
-			}
-			return StatusCode(StatusCodes.Status500InternalServerError , new { Status = "Error", Message = "Email not Vertifed" });
-		}
+                if (result.Succeeded)
+                {
+                    var vm= new RegisterViewModel { UserName = user.UserName};
+                    return View("SuccessPage",vm);
+                }
+            }
+            return View();
+        }
     }
 }
