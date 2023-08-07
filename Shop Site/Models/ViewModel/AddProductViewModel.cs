@@ -16,5 +16,8 @@ namespace Shop_Site.Models.ViewModel
         public string CategoryId { get; set; } = null!;
         public string BrandId { get; set; } = null!;
         public string Id { get; set; } = Guid.NewGuid().ToString();
+        [Required(ErrorMessage ="Stock Quantity Is required")]
+        [Range(0,int.MaxValue,ErrorMessage ="Quantity must be positive")]
+        public int StockQuantity { get; set; }
     }
 }

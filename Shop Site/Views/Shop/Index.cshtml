@@ -1,19 +1,34 @@
 ﻿@model List<Products>
 
 <div class="productcontainer">
-@foreach(var product in Model)
-{
-    <div class="card" style="width: 18rem;">
-        <img src="@((string.IsNullOrEmpty(product.ImageUrl)) ? "/Images/def123.jpg" : product.ImageUrl )"  class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@product.Title</h5>
-            <p class="card-text">@product.Description</p>
+    @foreach(var product in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <img src="@((string.IsNullOrEmpty(product.ImageUrl)) ? "/Images/def123.jpg" : product.ImageUrl )"  class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Brand :</b> @product.brand.Name</li>
+                <li class="list-group-item"><b>Category :</b> @product.category.Name</li>
+                <li class="list-group-item"><b>Price:</b> @product.Price</li>
+                <li class="list-group-item">
+                    <div style="display:flex; justify-content:space-between">
+                        <a class="btn btn-warning" href="">Add Basket</a>  <div class="like-container">
+                            <input type="checkbox" id="like-checkbox" class="like-checkbox">
+                            <label for="like-checkbox" class="like-label">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="24"
+                                     height="24"
+                                     viewBox="0 0 24 24">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 16.36 2 13.04 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C14.09 3.81 15.76 3 17.5 3 20.58 3 23 5.42 23 8.5c0 4.54-3.4 7.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item"> <a class="btn btn-warning" style="width:100%;height:100%;" href="">BUY</a></li>
+            </ul>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: @product.Price</li>
-            <li class="list-group-item">Brand : @product.brand.Name</li>
-            <li class="list-group-item">Category : @product.category.Name</li>
-        </ul>
-    </div>
-}
+    }
 </div>

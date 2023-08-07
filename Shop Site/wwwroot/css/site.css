@@ -109,6 +109,39 @@ a {
     text-decoration: none;
 }
 
+.like-container {
+    display: inline-block;
+    padding-right:10px;
+}
+
+.like-checkbox {
+    display: none;
+}
+
+.like-label {
+    cursor: pointer;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    fill: gray;
+}
+
+.like-checkbox:checked + .like-label {
+    fill: red; /* Цвет сердечка при активированном лайке */
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 1000px) {
     nav {
