@@ -1,9 +1,8 @@
 ﻿namespace Shop_Site.Models
 {
-    public class PurchasedProduct
+    public class PurchasedProduct:BaseEntity
     {
-        public int Id { get; set; }
-        public int ProductId { get; set; }
+        public string ProductId { get; set; } = null!;
         public virtual AppUser User { get; set; }
     }
 }

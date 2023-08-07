@@ -28,7 +28,6 @@ namespace Shop_Site.Data
                 new Category { Id = "4", Name = "Coat", CreatedDate = DateTime.Now }
                 );
 
-			modelBuilder.Entity<AppUser>().HasNoKey();
 			base.OnModelCreating(modelBuilder);
 		}
 

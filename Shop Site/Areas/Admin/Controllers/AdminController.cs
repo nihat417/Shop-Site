@@ -25,7 +25,6 @@ namespace Shop_Site.Areas.Admin.Controllers
             return View(context.Products.ToList());
         }
 
-
         public async Task<IActionResult> DeleteProduct(string id)
         {
             try
@@ -66,6 +65,7 @@ namespace Shop_Site.Areas.Admin.Controllers
                         ImageUrl = path,
                         Title = vm.Title,
                         Description = vm.Description,
+                        StockQuantity = vm.StockQuantity,
                         Price = vm.Price,
                         CategoryId = vm.CategoryId,
                         BrandId = vm.BrandId,

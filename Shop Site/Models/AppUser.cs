@@ -7,7 +7,6 @@ namespace Shop_Site.Models
 		public string FullName { get; set; } = null!;
 		public DateTime CreatedDate {  get; set; }
         public virtual List<PurchasedProduct> ?PurchasedProducts { get; set; }
-        public virtual List<Comment> ?Comments { get; set; }
         public virtual List<FavoriteProduct> ?FavoriteProducts { get; set; }
     }
 }
