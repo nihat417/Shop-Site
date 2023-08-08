@@ -20,5 +20,6 @@ namespace Shop_Site.Models.ViewModel
         [Required(ErrorMessage ="Stock Quantity Is required")]
         [Range(0,int.MaxValue,ErrorMessage ="Quantity must be positive")]
         public int StockQuantity { get; set; }
+
     }
 }

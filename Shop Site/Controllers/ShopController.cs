@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop_Site.Data;
+using Shop_Site.Models;
 
 namespace Shop_Site.Controllers
 {
@@ -12,6 +13,15 @@ namespace Shop_Site.Controllers
         public ShopController(AppDbContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public IActionResult Info(string id)
+        {
+            var products=context.Products.Find(id);
+            if (products == null)
+                return NotFound();
+            return View(products);
         }
 
         public IActionResult Index()

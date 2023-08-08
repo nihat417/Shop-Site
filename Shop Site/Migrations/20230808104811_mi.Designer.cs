@@ -12,8 +12,8 @@ using Shop_Site.Data;
 namespace Shop_Site.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230807165829_mig")]
-    partial class mig
+    [Migration("20230808104811_mi")]
+    partial class mi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,25 +252,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8039),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1692),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8050),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1703),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8053),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1705),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8055),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1707),
                             Name = "VETEMENTS"
                         });
                 });
@@ -294,25 +294,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8127),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1802),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8130),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1805),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8132),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1807),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 7, 20, 58, 29, 227, DateTimeKind.Local).AddTicks(8139),
+                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1809),
                             Name = "Coat"
                         });
                 });
@@ -396,6 +396,9 @@ namespace Shop_Site.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductId")
                         .IsRequired()

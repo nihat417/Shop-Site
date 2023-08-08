@@ -99,49 +99,97 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-
-
-.cardbody-color {
-    background-color: #ebf2fa;
+/* Product View */
+.product-view .product-name {
+    font-size: 24px;
+    color: #2874f0;
 }
 
-a {
-    text-decoration: none;
+    .product-view .product-name .label-stock {
+        font-size: 13px;
+        padding: 4px 13px;
+        border-radius: 5px;
+        color: #fff;
+        box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+        float: right;
+    }
+
+.product-view .product-path {
+    font-size: 13px;
+    font-weight: 500;
+    color: #252525;
+    margin-bottom: 16px;
 }
 
-.like-container {
-    display: inline-block;
-    padding-right:10px;
+.product-view .selling-price {
+    font-size: 26px;
+    color: #000;
+    font-weight: 600;
+    margin-right: 8px;
 }
 
-.like-checkbox {
+.product-view .original-price {
+    font-size: 18px;
+    color: #937979;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
+.product-view .btn1 {
+    border: 1px solid;
+    margin-right: 3px;
+    border-radius: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+    .product-view .btn1:hover {
+        background-color: #2874f0;
+        color: #fff;
+    }
+
+.product-view .input-quantity {
+    border: 1px solid #000;
+    margin-right: 3px;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 58px;
+    outline: none;
+    text-align: center;
+}
+/* Product View */
+
+
+
+
+.submenu {
     display: none;
+    position: absolute;
+    right: 0; 
+    top: 100%;
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 300px;
+    transition: opacity 0.3s ease; 
 }
 
-.like-label {
-    cursor: pointer;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-    fill: gray;
+.menu-item {
+    position: relative;
 }
 
-.like-checkbox:checked + .like-label {
-    fill: red; /* Цвет сердечка при активированном лайке */
+.menu-item.active .submenu {
+    display: block;
+    opacity: 1; 
 }
 
-
-
-
-
-
-
-
-
-
-
-
+.submenu li {
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
 
 @media (max-width: 1000px) {
     nav {
