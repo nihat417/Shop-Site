@@ -44,13 +44,14 @@
                         <div class="mt-2">
                             <div class="input-group">
                                 <span class="btn btn1 decrement-btn"><i class="fa fa-minus"></i></span>
-                                <input asp-for="CountProduct" type="text" value="1" class="input-quantity"/>
+                                <input asp-for="CountProduct" ID="inputQuantity" runat="server" type="text" value="1" class="input-quantity" />
                                 <span class="btn btn1 increment-btn"><i class="fa fa-plus"></i></span>
                             </div>
                         </div>
                         <div class="mt-2">
                             <a href="" class="btn btn1"> <i class="fa fa-shopping-cart"></i> Add To Cart</a>
                             <a href="" class="btn btn1"> <i class="fa fa-heart"></i> Add To Wishlist </a>
+                            <a href="" class="btn btn1"> <i class="fab fa-cc-amazon-pay"></i> Buy </a>
                         </div>
                     </div>
                 </div>
