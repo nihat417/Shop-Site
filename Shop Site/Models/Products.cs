@@ -16,5 +16,6 @@
         private int  _stockQuantity;
         public int StockQuantity { get => _stockQuantity; set { _stockQuantity = value; IsAvailable = value > 0; } }
         public bool IsAvailable { get; private set; }
+        public int CountProduct { get; set; }
     }
 }

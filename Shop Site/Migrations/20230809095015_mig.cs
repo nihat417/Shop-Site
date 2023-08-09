@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop_Site.Migrations
 {
     /// <inheritdoc />
-    public partial class mi : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -242,6 +242,7 @@ namespace Shop_Site.Migrations
                     IsFavorite = table.Column<bool>(type: "bit", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    CountProduct = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -288,10 +289,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1692), "SUPREME" },
-                    { "2", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1703), "OFF-WHITE" },
-                    { "3", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1705), "STUSSY" },
-                    { "4", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1707), "VETEMENTS" }
+                    { "1", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1651), "SUPREME" },
+                    { "2", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1662), "OFF-WHITE" },
+                    { "3", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1664), "STUSSY" },
+                    { "4", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1667), "VETEMENTS" }
                 });
 
             migrationBuilder.InsertData(
@@ -299,10 +300,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1802), "Bloomers" },
-                    { "2", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1805), "Blouse" },
-                    { "3", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1807), "Bodysuit" },
-                    { "4", new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1809), "Coat" }
+                    { "1", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1768), "Bloomers" },
+                    { "2", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1780), "Blouse" },
+                    { "3", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1782), "Bodysuit" },
+                    { "4", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1784), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(

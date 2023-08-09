@@ -12,8 +12,8 @@ using Shop_Site.Data;
 namespace Shop_Site.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230808104811_mi")]
-    partial class mi
+    [Migration("20230809095015_mig")]
+    partial class mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -252,25 +252,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1692),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1651),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1703),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1662),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1705),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1664),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1707),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1667),
                             Name = "VETEMENTS"
                         });
                 });
@@ -294,25 +294,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1802),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1768),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1805),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1780),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1807),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1782),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 8, 14, 48, 11, 99, DateTimeKind.Local).AddTicks(1809),
+                            CreatedDate = new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1784),
                             Name = "Coat"
                         });
                 });
@@ -354,6 +354,9 @@ namespace Shop_Site.Migrations
                     b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CountProduct")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
