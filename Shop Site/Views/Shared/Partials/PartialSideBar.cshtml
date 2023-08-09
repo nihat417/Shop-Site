@@ -7,12 +7,12 @@
         <i class="fas fa-bars"></i>
     </label>
     <ul>
-        <li><a><i class='fas fa-shopping-cart' style='color: white'></i></a></li>
+        <li><a><i class='fas fa-shopping-cart'></i></a></li>
         <li class="menu-item">
-            <a><i class="fa fa-user" style='color: white' aria-hidden="true"></i></a>
+            <a><i class="fa fa-user" aria-hidden="true"></i></a>
             <ul class="submenu">
-                <li><a style="font-size:1rem;">@User.Identity.Name</a></li>
-                <li><a style="font-size:1rem;color: black;" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                <li><a style="font-size:1rem; color: black;">@User.Identity.Name</a></li>
+                <li><a style="font-size:1rem; color: #FF0000" asp-action="Logout" asp-controller="Account">Logout</a></li>
             </ul>
         </li>
         
