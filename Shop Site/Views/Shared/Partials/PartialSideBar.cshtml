@@ -12,7 +12,7 @@
             <a><i class="fa fa-user" aria-hidden="true"></i></a>
             <ul class="submenu">
                 <li><a style="font-size:1rem; color: black;">@User.Identity.Name</a></li>
-                <li><a style="font-size:1rem; color: black;">Favorites</a></li>
+                <li><a style="font-size:1rem; color: black;" data-bs-toggle="modal" data-bs-target="#myModal" id="favoritesProducts">Favorites</a></li>
                 <li><a style="font-size:1rem; color: black;">Buyed Products</a></li>
                 <li><a style="font-size:1rem; color: #FF0000" asp-action="Logout" asp-controller="Account">Logout</a></li>
             </ul>
@@ -20,6 +20,7 @@
         
     </ul>
 </nav>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -31,10 +32,27 @@
 
         $('.menu-item').mouseleave(function () {
             $(this).removeClass('active');
-            $(this).find('.submenu').hide(); 
+            $(this).find('.submenu').hide();
+        });
+
+        $('#favoritesProducts').click(function () {
+            $.ajax({
+                url: '/Shop/FavoriteProduct',
+                type: 'GET',
+                success: function (data) {
+                    $('.modal-content').html(data);
+                    $('#myModal').modal('show'); // Initialize and show the modal
+                },
+                error: function () {
+                    alert('Error loading favorite products.');
+                }
+            });
         });
     });
 
-</script>
 
+
+
+
+</script>
 
