@@ -115,14 +115,14 @@ input[type="checkbox"] {
     color: #2874f0;
 }
 
-    .product-view .product-name .label-stock {
-        font-size: 13px;
-        padding: 4px 13px;
-        border-radius: 5px;
-        color: #fff;
-        box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
-        float: right;
-    }
+.product-view .product-name .label-stock {
+    font-size: 13px;
+    padding: 4px 13px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    float: right;
+}
 
 .product-view .product-path {
     font-size: 13px;

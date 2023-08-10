@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 
 namespace Shop_Site.Controllers
@@ -14,6 +15,12 @@ namespace Shop_Site.Controllers
             this.context = context;
         }
 
+        public async Task<IActionResult>FavoriteProduct()
+        {
+            var product = await context.Products.Where(product => product.IsFavorite).ToListAsync();
+            return View(product);
+        }
+
         [HttpGet]
         public IActionResult Info(string id)
         {
@@ -26,6 +33,20 @@ namespace Shop_Site.Controllers
         public IActionResult Index()
         {
             return View(context.Products.ToList());
-        }   
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>AddFavorite(string Id)
+        {
+            var product =await context.Products.FindAsync(Id);
+            if (product != null)
+            {
+                product.IsFavorite = !product.IsFavorite;
+                await context.SaveChangesAsync();
+                var refererUrl = HttpContext.Request.Headers["Referer"].ToString();
+                return Redirect(refererUrl);
+            }
+            return NotFound();
+        }
     }
 }
