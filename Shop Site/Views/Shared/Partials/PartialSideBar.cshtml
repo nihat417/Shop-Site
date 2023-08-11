@@ -22,23 +22,6 @@
 </nav>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Модальное окно</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            @Html.Partial("FavoriteProduct") 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Сохранить изменения</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -52,13 +35,13 @@
             $(this).removeClass('active');
             $(this).find('.submenu').hide();
         });
-
         $('#favoritesProducts').click(function () {
             $.ajax({
                 url: '/Shop/FavoriteProduct',
                 type: 'GET',
                 success: function (data) {
-                    $('.modal-content').html(data);
+                    $('#myModal').remove(); // Remove any existing modals to prevent conflicts
+                    $('body').append(data); // Add the modal to the body
                     $('#myModal').modal('show'); // Initialize and show the modal
                 },
                 error: function () {
@@ -67,10 +50,5 @@
             });
         });
     });
-
-
-
-
-
 </script>
 

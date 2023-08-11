@@ -18,7 +18,7 @@ namespace Shop_Site.Controllers
         public async Task<IActionResult>FavoriteProduct()
         {
             var product = await context.Products.Where(product => product.IsFavorite).ToListAsync();
-            return View(product);
+            return PartialView(product);
         }
 
         [HttpGet]
