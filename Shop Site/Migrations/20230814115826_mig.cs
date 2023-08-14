@@ -289,10 +289,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1651), "SUPREME" },
-                    { "2", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1662), "OFF-WHITE" },
-                    { "3", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1664), "STUSSY" },
-                    { "4", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1667), "VETEMENTS" }
+                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1064), "SUPREME" },
+                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1074), "OFF-WHITE" },
+                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1076), "STUSSY" },
+                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1086), "VETEMENTS" }
                 });
 
             migrationBuilder.InsertData(
@@ -300,10 +300,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1768), "Bloomers" },
-                    { "2", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1780), "Blouse" },
-                    { "3", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1782), "Bodysuit" },
-                    { "4", new DateTime(2023, 8, 9, 13, 50, 15, 155, DateTimeKind.Local).AddTicks(1784), "Coat" }
+                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1158), "Bloomers" },
+                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1161), "Blouse" },
+                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1163), "Bodysuit" },
+                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1165), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(
