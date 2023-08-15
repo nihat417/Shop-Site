@@ -201,6 +201,10 @@ input[type="checkbox"] {
     margin-bottom: 10px; 
 }
 
+.quantity-input {
+    width: 10px !important;
+}
+
 @media (max-width: 1000px) {
     nav {
         padding: 0 40px 0 50px;
@@ -255,5 +259,13 @@ input[type="checkbox"] {
     nav ul li a:hover {
         background: none;
         color: cyan;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .quantity-input {
+        width: 30px;
+        font-size: 12px;
     }
 }
