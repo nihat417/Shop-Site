@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 using Shop_Site.Helpers;
-using Shop_Site.Models;
-
 
 namespace Shop_Site.Controllers
 {
@@ -13,7 +10,7 @@ namespace Shop_Site.Controllers
 	public class ShopController : Controller
     {
         private readonly AppDbContext context;
-        private IHttpContextAccessor httpContextAccessor;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public ShopController(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -50,9 +47,17 @@ namespace Shop_Site.Controllers
             return View(products);
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View(context.Products.ToList());
+            var products = context.Products.Take(12).ToList();
+            return View(products);
+        }
+
+        public IActionResult LoadMoreProducts(int skip)
+        {
+            var products = context.Products.Skip(skip).Take(12).ToList();
+            return PartialView("LoadedProducts", products);
         }
 
         [HttpPost]
