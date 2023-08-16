@@ -1,19 +1,43 @@
 ﻿@model List<Products>
 
-<div class="productcontainer">
-@foreach(var product in Model)
-{
-    <div class="card" style="width: 18rem;">
-        <img src="@((string.IsNullOrEmpty(product.ImageUrl)) ? "/Images/def123.jpg" : product.ImageUrl )"  class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@product.Title</h5>
-            <p class="card-text">@product.Description</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: @product.Price</li>
-            <li class="list-group-item">Brand : @product.brand.Name</li>
-            <li class="list-group-item">Category : @product.category.Name</li>
-        </ul>
-    </div>
-}
+<div class="productContainer" id="productContainer">
+    @await Html.PartialAsync("LoadedProducts", Model)
 </div>
+
+<div id="loadMoreBtnContainer" class="d-flex justify-content-center mt-4">
+    <button id="loadMoreBtn" class="btn btn-primary">Show more</button>
+</div>
+
+<script>
+    var skip = 12; 
+    var take = 12; 
+
+    $(document).ready(function () {
+        $("#loadMoreBtn").click(function () {
+            loadMoreProducts();
+        });
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                loadMoreProducts();
+            }
+        });
+    });
+
+    function loadMoreProducts() {
+        $.ajax({
+            url: '@Url.Action("LoadMoreProducts", "Shop")',
+            type: 'GET',
+            data: { skip: skip },
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#productContainer").append(data); 
+                    skip += take; 
+                } else {
+                    $("#loadMoreBtnContainer").html("<p>There are no more products</p>");
+                    $("#loadMoreBtn").remove();
+                }
+            }
+        });
+    }
+</script>

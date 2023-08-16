@@ -13,11 +13,16 @@
             <input asp-for="Price" placeholder="Price" />
             <span asp-validation-for="Price" class="fgred"></span>
         </div>
-
+        <label class="pd10" asp-for="StockQuantity">Stock Quantity<span>*</span></label>
+        <div>
+            <input asp-for="StockQuantity" type="number" placeholder="Quantity" />
+            <span asp-validation-for="StockQuantity" class="fgred"></span>
+        </div>
         <div class="pd15">
             <select asp-for="BrandId" asp-items="@ViewBag.Brands">Select Brand</select>
             <select asp-for="CategoryId" asp-items="@ViewBag.Categories"> Select Category</select>
         </div>
+        
         <div class="pd5">
             <input type="file" asp-for="ImageUrl" /><br />
         </div>

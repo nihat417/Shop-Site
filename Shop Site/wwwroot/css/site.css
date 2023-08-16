@@ -18,8 +18,12 @@ nav {
     flex-wrap: wrap;
 }
 
+.logo a {
+    text-decoration: none;
+    color: #FF0000;
+}
+
 nav .logo {
-    color: #fff;
     font-size: 35px;
     font-weight: 600;
 }
@@ -34,8 +38,13 @@ nav ul li {
     margin: 0 5px;
 }
 
+a:not([href]):not([class]),
+a:not([href]):not([class]):hover {
+    color: #FF0000; 
+}
+
+
 nav ul li a {
-    color: #f2f2f2;
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
@@ -77,11 +86,12 @@ input[type="checkbox"] {
 .productcontainer {
     display: flex;
     flex-direction: row;
+    justify-content:center;
     flex-wrap: wrap;
 }
 
 .productcontainer .card {
-    margin: 15px 20px;
+    margin: 50px 30px;
 }
 
 .fgred {
@@ -99,16 +109,101 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-
-
-.cardbody-color {
-    background-color: #ebf2fa;
+/* Product View */
+.product-view .product-name {
+    font-size: 24px;
+    color: #2874f0;
 }
 
-a {
-    text-decoration: none;
+.product-view .product-name .label-stock {
+    font-size: 13px;
+    padding: 4px 13px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    float: right;
 }
 
+.product-view .product-path {
+    font-size: 13px;
+    font-weight: 500;
+    color: #252525;
+    margin-bottom: 16px;
+}
+
+.product-view .selling-price {
+    font-size: 26px;
+    color: #000;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.product-view .original-price {
+    font-size: 18px;
+    color: #937979;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
+.product-view .btn1 {
+    border: 1px solid;
+    margin-right: 3px;
+    border-radius: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+    .product-view .btn1:hover {
+        background-color: #2874f0;
+        color: #fff;
+    }
+
+.product-view .input-quantity {
+    border: 1px solid #000;
+    margin-right: 3px;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 58px;
+    outline: none;
+    text-align: center;
+}
+/* Product View */
+
+
+
+
+.submenu {
+    display: none;
+    position: absolute;
+    right: 0; 
+    top: 100%;
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 300px;
+    transition: opacity 0.3s ease; 
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-item.active .submenu {
+    display: block;
+    opacity: 1; 
+}
+
+.submenu li {
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+
+.quantity-input {
+    width: 10px !important;
+}
 
 @media (max-width: 1000px) {
     nav {
@@ -164,5 +259,13 @@ a {
     nav ul li a:hover {
         background: none;
         color: cyan;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .quantity-input {
+        width: 30px;
+        font-size: 12px;
     }
 }

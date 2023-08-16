@@ -1,0 +1,77 @@
+﻿@model List<CartItem>
+
+<link rel="stylesheet" href="~/css/site.css" />
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Your Cart Products</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+            </div>
+            <div class="modal-body">
+                @if (Model.Count == 0)
+                {
+                    <p>You have no products in carts.</p>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Count</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model)
+                                {
+                                    <tr>
+                                        <td><a href="@Url.Action("Info","Shop",new { id = product.Product.Id})">@product.Product.Title</a></td>
+                                        <td>@product.Product.Price</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <button class="btn btn-sm btn-secondary minus-button" data-product-id="@product.Product.Id">-</button>
+                                                <input type="text" style="width:10px;" class="form-control quantity-input" value="1" data-product-id="@product.Product.Id">
+                                                <button class="btn btn-sm btn-secondary plus-button" data-product-id="@product.Product.Id">+</button>
+                                            </div>
+                                        </td>
+                                        <td><button class="remove-button" data-product-id="@product.Product.Id">X</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+            <div class="modal-overlay"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                <button type="button" class="btn btn-primary">Buy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".plus-button").click(function () {
+            var productId = $(this).data("product-id");
+            var input = $("input[data-product-id='" + productId + "']");
+            var currentValue = parseInt(input.val());
+            input.val(currentValue + 1);
+        });
+
+        $(".minus-button").click(function () {
+            var productId = $(this).data("product-id");
+            var input = $("input[data-product-id='" + productId + "']");
+            var currentValue = parseInt(input.val());
+            if (currentValue > 1) {
+                input.val(currentValue - 1);
+            }
+        });
+    });
+</script>

@@ -249,25 +249,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1570),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1064),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1582),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1074),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1585),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1076),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1587),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1086),
                             Name = "VETEMENTS"
                         });
                 });
@@ -291,33 +291,58 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1656),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1158),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1668),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1161),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1670),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1163),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1672),
+                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1165),
                             Name = "Coat"
                         });
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.FavoriteProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteProduct");
                 });
 
             modelBuilder.Entity("Shop_Site.Models.Products", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AverageRating")
+                        .HasColumnType("int");
 
                     b.Property<string>("BrandId")
                         .IsRequired()
@@ -326,6 +351,9 @@ namespace Shop_Site.Migrations
                     b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CountProduct")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -336,8 +364,17 @@ namespace Shop_Site.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFavorite")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -350,6 +387,65 @@ namespace Shop_Site.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.PurchasedProduct", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PurchasedProduct");
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.Review", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PurchasedProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -403,6 +499,17 @@ namespace Shop_Site.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Shop_Site.Models.FavoriteProduct", b =>
+                {
+                    b.HasOne("Shop_Site.Models.AppUser", "User")
+                        .WithMany("FavoriteProducts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Shop_Site.Models.Products", b =>
                 {
                     b.HasOne("Shop_Site.Models.Brand", "brand")
@@ -422,6 +529,31 @@ namespace Shop_Site.Migrations
                     b.Navigation("category");
                 });
 
+            modelBuilder.Entity("Shop_Site.Models.PurchasedProduct", b =>
+                {
+                    b.HasOne("Shop_Site.Models.AppUser", "User")
+                        .WithMany("PurchasedProducts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.Review", b =>
+                {
+                    b.HasOne("Shop_Site.Models.Products", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductsId");
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.AppUser", b =>
+                {
+                    b.Navigation("FavoriteProducts");
+
+                    b.Navigation("PurchasedProducts");
+                });
+
             modelBuilder.Entity("Shop_Site.Models.Brand", b =>
                 {
                     b.Navigation("Product");
@@ -430,6 +562,11 @@ namespace Shop_Site.Migrations
             modelBuilder.Entity("Shop_Site.Models.Category", b =>
                 {
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Shop_Site.Models.Products", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

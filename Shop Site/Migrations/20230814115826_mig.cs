@@ -187,6 +187,47 @@ namespace Shop_Site.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavoriteProduct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteProduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteProduct_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchasedProduct",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductCount = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchasedProduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchasedProduct_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -197,6 +238,11 @@ namespace Shop_Site.Migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BrandId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AverageRating = table.Column<int>(type: "int", nullable: false),
+                    IsFavorite = table.Column<bool>(type: "bit", nullable: false),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    CountProduct = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -216,15 +262,37 @@ namespace Shop_Site.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Review",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    PurchasedProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Review", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Review_Products_ProductsId",
+                        column: x => x.ProductsId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "Brands",
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1570), "SUPREME" },
-                    { "2", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1582), "OFF-WHITE" },
-                    { "3", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1585), "STUSSY" },
-                    { "4", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1587), "VETEMENTS" }
+                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1064), "SUPREME" },
+                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1074), "OFF-WHITE" },
+                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1076), "STUSSY" },
+                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1086), "VETEMENTS" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,10 +300,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1656), "Bloomers" },
-                    { "2", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1668), "Blouse" },
-                    { "3", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1670), "Bodysuit" },
-                    { "4", new DateTime(2023, 8, 1, 11, 49, 19, 709, DateTimeKind.Local).AddTicks(1672), "Coat" }
+                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1158), "Bloomers" },
+                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1161), "Blouse" },
+                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1163), "Bodysuit" },
+                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1165), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -278,6 +346,11 @@ namespace Shop_Site.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FavoriteProduct_UserId",
+                table: "FavoriteProduct",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
                 table: "Products",
                 column: "BrandId");
@@ -286,6 +359,16 @@ namespace Shop_Site.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchasedProduct_UserId",
+                table: "PurchasedProduct",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_ProductsId",
+                table: "Review",
+                column: "ProductsId");
         }
 
         /// <inheritdoc />
@@ -307,13 +390,22 @@ namespace Shop_Site.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "FavoriteProduct");
+
+            migrationBuilder.DropTable(
+                name: "PurchasedProduct");
+
+            migrationBuilder.DropTable(
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Brands");

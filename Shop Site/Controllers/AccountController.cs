@@ -21,9 +21,7 @@ namespace Shop_Site.Controllers
 
 
 		public IActionResult Register() =>View();
-		
-
-        
+  
         [HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel vm)
 		{
@@ -55,13 +53,11 @@ namespace Shop_Site.Controllers
 			return View(vm);
 		}
 
-		
 		public IActionResult Login(string ReturnUrl) 
 		{
 			ViewBag.ReturnUrl = ReturnUrl;
 			return View();
 		}
-
 		
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel vm,string? ReturnUrl)
