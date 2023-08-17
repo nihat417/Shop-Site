@@ -13,7 +13,7 @@
             <ul class="submenu">
                 <li><a style="font-size:1rem; color: black;">@User.Identity.Name</a></li>
                 <li><a style="font-size:1rem; color: black;" id="favoritesProducts">Favorites</a></li>
-                <li><a style="font-size:1rem; color: black;">Buyed Products</a></li>
+                <li><a style="font-size:1rem; color: black;" id="MyBuyedProducts">Buyed Products</a></li>
                 <li><a style="font-size:1rem; color: #FF0000" asp-action="Logout" asp-controller="Account">Logout</a></li>
             </ul>
         </li>
@@ -59,6 +59,28 @@
         $('#ProductCarts').off('click').on('click', function () {
             $.ajax({
                 url: '/Shop/Cart',
+                type: 'GET',
+                success: function (data) {
+                    $('#myModal').remove();
+                    console.log("dispose")
+                    $('body').append(data);
+
+                    $('#myModal').on('shown.bs.modal', function () {
+                        console.log("show")
+                    });
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert('Error loading favorite products.');
+                }
+            });
+        });
+
+
+
+        $('#MyBuyedProducts').off('click').on('click', function () {
+            $.ajax({
+                url: '/Shop/BuyedProducts',
                 type: 'GET',
                 success: function (data) {
                     $('#myModal').remove();

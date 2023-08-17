@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop_Site.Data;
 using Shop_Site.Helpers;
+using Shop_Site.Models;
 
 namespace Shop_Site.Controllers
 {
@@ -48,15 +49,15 @@ namespace Shop_Site.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = context.Products.Take(12).ToList();
+            var products = await context.Products.Take(12).ToListAsync();
             return View(products);
         }
 
-        public IActionResult LoadMoreProducts(int skip)
+        public async Task<IActionResult> LoadMoreProducts(int skip)
         {
-            var products = context.Products.Skip(skip).Take(12).ToList();
+            var products = await context.Products.Skip(skip).Take(12).ToListAsync();
             return PartialView("LoadedProducts", products);
         }
 
@@ -83,6 +84,44 @@ namespace Shop_Site.Controllers
         {
             httpContextAccessor.HttpContext.Session.RemoveFromCart(id);
             return RedirectToAction("Cart");
+        }
+
+        public IActionResult BuyedProducts()
+        {
+            var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+            if (user != null)
+            {
+                var purchasedProducts = context.PurchasedProducts
+                    .Where(p => p.User.Id == user.Id)
+                    .ToList();
+
+                return PartialView(purchasedProducts);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult BuyProduct(string id)
+        {
+            var product = context.Products.Find(id);
+            if (product != null)
+            {
+                var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+                if (user != null)
+                {
+                    var purchasedProduct = new PurchasedProduct
+                    {
+                        ProductId = id,
+                        ProductCount = 1,
+                        ProductName = product.Title,
+                        User = user
+                    };
+                    context.PurchasedProducts.Add(purchasedProduct);
+                    context.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }

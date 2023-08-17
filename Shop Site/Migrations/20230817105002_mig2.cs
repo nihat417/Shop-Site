@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop_Site.Migrations
 {
     /// <inheritdoc />
-    public partial class mig : Migration
+    public partial class mig2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,24 +207,24 @@ namespace Shop_Site.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurchasedProduct",
+                name: "PurchasedProducts",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductCount = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurchasedProduct", x => x.Id);
+                    table.PrimaryKey("PK_PurchasedProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PurchasedProduct_AspNetUsers_UserId",
+                        name: "FK_PurchasedProducts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -263,25 +263,31 @@ namespace Shop_Site.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Review",
+                name: "Reviews",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AuthorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    PurchasedProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasedProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProductsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Review", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Review_Products_ProductsId",
+                        name: "FK_Reviews_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Reviews_PurchasedProducts_PurchasedProductId",
+                        column: x => x.PurchasedProductId,
+                        principalTable: "PurchasedProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -289,10 +295,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1064), "SUPREME" },
-                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1074), "OFF-WHITE" },
-                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1076), "STUSSY" },
-                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1086), "VETEMENTS" }
+                    { "1", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4383), "SUPREME" },
+                    { "2", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4395), "OFF-WHITE" },
+                    { "3", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4398), "STUSSY" },
+                    { "4", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4400), "VETEMENTS" }
                 });
 
             migrationBuilder.InsertData(
@@ -300,10 +306,10 @@ namespace Shop_Site.Migrations
                 columns: new[] { "Id", "CreatedDate", "Name" },
                 values: new object[,]
                 {
-                    { "1", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1158), "Bloomers" },
-                    { "2", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1161), "Blouse" },
-                    { "3", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1163), "Bodysuit" },
-                    { "4", new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1165), "Coat" }
+                    { "1", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4477), "Bloomers" },
+                    { "2", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4480), "Blouse" },
+                    { "3", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4488), "Bodysuit" },
+                    { "4", new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4490), "Coat" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -361,14 +367,19 @@ namespace Shop_Site.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchasedProduct_UserId",
-                table: "PurchasedProduct",
+                name: "IX_PurchasedProducts_UserId",
+                table: "PurchasedProducts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_ProductsId",
-                table: "Review",
+                name: "IX_Reviews_ProductsId",
+                table: "Reviews",
                 column: "ProductsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_PurchasedProductId",
+                table: "Reviews",
+                column: "PurchasedProductId");
         }
 
         /// <inheritdoc />
@@ -393,25 +404,25 @@ namespace Shop_Site.Migrations
                 name: "FavoriteProduct");
 
             migrationBuilder.DropTable(
-                name: "PurchasedProduct");
-
-            migrationBuilder.DropTable(
-                name: "Review");
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "PurchasedProducts");
 
             migrationBuilder.DropTable(
                 name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

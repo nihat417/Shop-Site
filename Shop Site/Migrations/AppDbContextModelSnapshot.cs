@@ -249,25 +249,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1064),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4383),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1074),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4395),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1076),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4398),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1086),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4400),
                             Name = "VETEMENTS"
                         });
                 });
@@ -291,25 +291,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1158),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4477),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1161),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4480),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1163),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4488),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 14, 15, 58, 26, 819, DateTimeKind.Local).AddTicks(1165),
+                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4490),
                             Name = "Coat"
                         });
                 });
@@ -404,15 +404,18 @@ namespace Shop_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("ProductName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PurchasedProduct");
+                    b.ToTable("PurchasedProducts");
                 });
 
             modelBuilder.Entity("Shop_Site.Models.Review", b =>
@@ -436,7 +439,7 @@ namespace Shop_Site.Migrations
 
                     b.Property<string>("PurchasedProductId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -445,7 +448,9 @@ namespace Shop_Site.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("Review");
+                    b.HasIndex("PurchasedProductId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -533,9 +538,7 @@ namespace Shop_Site.Migrations
                 {
                     b.HasOne("Shop_Site.Models.AppUser", "User")
                         .WithMany("PurchasedProducts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -545,6 +548,14 @@ namespace Shop_Site.Migrations
                     b.HasOne("Shop_Site.Models.Products", null)
                         .WithMany("Reviews")
                         .HasForeignKey("ProductsId");
+
+                    b.HasOne("Shop_Site.Models.PurchasedProduct", "PurchasedProduct")
+                        .WithMany()
+                        .HasForeignKey("PurchasedProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PurchasedProduct");
                 });
 
             modelBuilder.Entity("Shop_Site.Models.AppUser", b =>
