@@ -6,6 +6,8 @@
         public string ProductName { get; set; } = null!;
         public int ProductCount { get; set; }
         public virtual AppUser? User { get; set; }
+        public string? ReviewContent { get; set; }
+        public int Rating { get; set; }
 
     }
 }

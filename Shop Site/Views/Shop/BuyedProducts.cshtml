@@ -28,6 +28,7 @@
                                 {
                                     <tr>
                                         <td><a href="@Url.Action("Info","Shop",new { id = product.Id})">@product.ProductName</a></td>
+                                        <td><button class="add-comment-button" data-product-id="@product.Id">Add Comment</button></td>
                                         <td><button class="remove-button" data-product-id="@product.Id">X</button></td>
                                     </tr>
                                 }
@@ -44,3 +45,50 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ratingModalLabel">Leave a Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="ratingForm" asp-action="WriteReview">
+                    <input type="hidden" id="productId" name="productId" />
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating:</label>
+                        <select id="rating" name="rating" class="form-control" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewContent" class="form-label">Review:</label>
+                        <textarea id="reviewContent" name="reviewContent" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // ... (your existing JavaScript code) ...
+
+        // Open rating modal when "Add Comment" button is clicked
+        $(".add-comment-button").click(function () {
+            var productId = $(this).data("product-id");
+            $("#productId").val(productId); // Set the product ID in the hidden field
+            $("#ratingModal").modal("show"); // Open the rating modal
+        });
+    });
+
+</script>

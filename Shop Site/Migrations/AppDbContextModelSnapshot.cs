@@ -249,25 +249,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4383),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9479),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4395),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9490),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4398),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9492),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4400),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9525),
                             Name = "VETEMENTS"
                         });
                 });
@@ -291,25 +291,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4477),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9629),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4480),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9631),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4488),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9633),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 17, 14, 50, 1, 995, DateTimeKind.Local).AddTicks(4490),
+                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9646),
                             Name = "Coat"
                         });
                 });
@@ -340,9 +340,6 @@ namespace Shop_Site.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AverageRating")
-                        .HasColumnType("int");
 
                     b.Property<string>("BrandId")
                         .IsRequired()
@@ -380,6 +377,12 @@ namespace Shop_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("TotalRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TotalReviews")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
@@ -406,6 +409,12 @@ namespace Shop_Site.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewContent")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")

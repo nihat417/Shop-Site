@@ -123,5 +123,35 @@ namespace Shop_Site.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult WriteReview(string productId, string reviewContent, int rating)
+        {
+            var purchasedProduct = context.PurchasedProducts.Find(productId);
+
+            if (purchasedProduct != null && purchasedProduct.ReviewContent == null)
+            {
+                purchasedProduct.ReviewContent = reviewContent;
+                purchasedProduct.Rating = rating;
+                context.SaveChanges();
+
+                var product = context.Products.Find(purchasedProduct.ProductId);
+                if (product != null)
+                {
+                    var reviews = context.PurchasedProducts.Where(p => p.ProductId == productId && p.ReviewContent != null).ToList();
+
+                    product.TotalReviews = reviews.Count;
+                    if(reviews.Any())
+                    {
+                        product.TotalRating = reviews.Average(r => r.Rating);
+                    }
+                    else { product.TotalRating = rating; }
+
+                    context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
