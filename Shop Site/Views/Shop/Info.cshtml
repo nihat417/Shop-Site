@@ -80,33 +80,31 @@
                         </div>
                     </div>
                 </div>
-
-
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        @if (ViewBag.Reviews != null && ((List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews).Count > 0)
-                        {
-                            <h3>Reviews</h3>
-                            <ul>
-                                @foreach (var review in (List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews)
-                                {
-                                    <li>
-                                        <p>Rating: @review.Rating</p>
-                                        <p>Review: @review.ReviewContent</p>
-                                        <!-- Display other review details here -->
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        else
-                        {
-                            <p>No reviews available for this product.</p>
-                        }
-                    </div>
-                </div>
-
-
             </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            @if (ViewBag.Reviews != null && ((List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews).Count > 0)
+            {
+                <h3>username</h3>
+
+                <ul>
+                    @foreach (var review in (List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews)
+                    {
+                        <li>
+                            <p><strong>Username: @review.User.UserName</strong></p
+                            <p>Rating: @review.Rating</p>
+                            <p>Review: @review.ReviewContent</p>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No reviews available for this product.</p>
+            }
         </div>
     </div>
 </body>
