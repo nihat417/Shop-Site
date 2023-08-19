@@ -35,7 +35,6 @@ namespace Shop_Site.Data
         public DbSet<Category>Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<PurchasedProduct> PurchasedProducts { get; set; }
-        public DbSet<Review> Reviews { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
 
     }

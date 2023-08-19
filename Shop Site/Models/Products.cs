@@ -10,7 +10,6 @@
         public virtual Category category { get; set; } = null!;
         public string BrandId { get; set; } = null!;
         public string CategoryId { get; set; } = null!;
-        public virtual List<Review> ?Reviews { get; set; }
         public virtual bool IsFavorite { get; set; }
         private int  _stockQuantity;
         public int StockQuantity { get => _stockQuantity; set { _stockQuantity = value; IsAvailable = value > 0; } }

@@ -45,6 +45,13 @@ namespace Shop_Site.Controllers
             var products=context.Products.Find(id);
             if (products == null)
                 return NotFound();
+            var reviews = context.PurchasedProducts
+            .Where(p => p.ProductId == id && p.ReviewContent != null)
+            .ToList();
+
+            ViewBag.Product = products;
+            ViewBag.Reviews = reviews;
+
             return View(products);
         }
 

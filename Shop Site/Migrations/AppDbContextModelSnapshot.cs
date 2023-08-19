@@ -249,25 +249,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9479),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7467),
                             Name = "SUPREME"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9490),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7477),
                             Name = "OFF-WHITE"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9492),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7479),
                             Name = "STUSSY"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9525),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7480),
                             Name = "VETEMENTS"
                         });
                 });
@@ -291,25 +291,25 @@ namespace Shop_Site.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9629),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7566),
                             Name = "Bloomers"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9631),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7576),
                             Name = "Blouse"
                         },
                         new
                         {
                             Id = "3",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9633),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7578),
                             Name = "Bodysuit"
                         },
                         new
                         {
                             Id = "4",
-                            CreatedDate = new DateTime(2023, 8, 18, 16, 1, 0, 19, DateTimeKind.Local).AddTicks(9646),
+                            CreatedDate = new DateTime(2023, 8, 19, 11, 12, 33, 540, DateTimeKind.Local).AddTicks(7580),
                             Name = "Coat"
                         });
                 });
@@ -427,41 +427,6 @@ namespace Shop_Site.Migrations
                     b.ToTable("PurchasedProducts");
                 });
 
-            modelBuilder.Entity("Shop_Site.Models.Review", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ProductsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PurchasedProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductsId");
-
-                    b.HasIndex("PurchasedProductId");
-
-                    b.ToTable("Reviews");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -552,21 +517,6 @@ namespace Shop_Site.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shop_Site.Models.Review", b =>
-                {
-                    b.HasOne("Shop_Site.Models.Products", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("ProductsId");
-
-                    b.HasOne("Shop_Site.Models.PurchasedProduct", "PurchasedProduct")
-                        .WithMany()
-                        .HasForeignKey("PurchasedProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PurchasedProduct");
-                });
-
             modelBuilder.Entity("Shop_Site.Models.AppUser", b =>
                 {
                     b.Navigation("FavoriteProducts");
@@ -582,11 +532,6 @@ namespace Shop_Site.Migrations
             modelBuilder.Entity("Shop_Site.Models.Category", b =>
                 {
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Shop_Site.Models.Products", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
