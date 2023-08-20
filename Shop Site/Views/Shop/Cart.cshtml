@@ -52,7 +52,14 @@
             <div class="modal-overlay"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                <button type="button" class="btn btn-primary">Buy</button>
+                <form asp-controller="Shop" asp-action="BuyProduct" method="post">
+                    @foreach(var product in Model)
+                    {
+                        <input type="hidden" asp-for="@product.Product.Id" />
+                    }
+                    <button type="submit" class="btn btn-primary">Buy
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -62,6 +69,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
+
+        checkAndToggleBuyButton();
         $(".plus-button").click(function () {
             var productId = $(this).data("product-id");
             var input = $("input[data-product-id='" + productId + "']");
@@ -85,21 +94,29 @@
             updateTotalPrice();
         });
 
-        $(document).on("click", ".remove-from-cart-button", function () {
+        $(".remove-from-cart-button").click(function () {
             var productId = $(this).data("product-id");
-            var tableBody = $("#myModal .table tbody");
+            var rowToRemove = $(this).closest("tr"); 
 
             $.post("/Shop/RemoveFromCart", { id: productId }, function (data) {
                 if (data) {
-                    tableBody.html($(data).find(".table tbody").html());
+                    rowToRemove.remove(); 
                     updateTotalPrice();
 
-                    if (tableBody.children().length === 0) {
+                    var modalBody = $("#myModal .table tbody");
+                    if (modalBody.children().length === 0) {
+                        $(".modal-footer .btn-primary").attr("disabled", "disabled");
+                        modalBody.html("<tr><td colspan='4'>There are no products in your cart</td></tr>");
+                        updateTotalPrice();
                         $('#myModal').modal('hide');
+                    }
+                    else {
+                        $(".modal-footer .btn-primary").removeAttr("disabled"); 
                     }
                 }
             });
         });
+        
 
         function updateTotalPrice() {
             var total = 0;
@@ -113,6 +130,17 @@
             $(".total-price").text("Total Price: " + total);
         }
 
+
+        function checkAndToggleBuyButton() {
+            var modalBody = $("#myModal .table tbody");
+            var buyButton = $(".modal-footer .btn-primary");
+
+            if (modalBody.children().length === 0) {
+                buyButton.attr("disabled", "disabled");
+            } else {
+                buyButton.removeAttr("disabled");
+            }
+        }
 
     });
 </script>

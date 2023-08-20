@@ -95,7 +95,6 @@ namespace Shop_Site.Controllers
             return NotFound();
         }
 
-
         [HttpPost]
         public IActionResult RemoveFromCart(string id)
         {
