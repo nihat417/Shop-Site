@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-5 mt-3">
                     <div class="bg-white border">
-                        <img src="@((string.IsNullOrEmpty(Model.ImageUrl)) ? "/Images/def123.jpg" : Model.ImageUrl) " class="w-100" alt="Img">
+                        <img src="@((string.IsNullOrEmpty(Model.ImageUrl)) ? "/Images/def123.jpg" : "/" + Model.ImageUrl) " class="w-100" alt="Img">
                     </div>
                 </div>
                 <div class="col-md-7 mt-3">
@@ -84,22 +84,25 @@
         </div>
     </div>
 
-    <div class="col-md-12 mt-3">
-        <div class="card">
-            @if (ViewBag.Reviews != null && ((List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews).Count > 0)
+    <div class="py-3 py-md-5 bg-light">
+        <div class="container">
+            <h3>Comments</h3>
+            @if (ViewBag.Reviews != null && ViewBag.Reviews.Count > 0)
             {
-                <h3>username</h3>
-
-                <ul>
-                    @foreach (var review in (List<Shop_Site.Models.PurchasedProduct>)ViewBag.Reviews)
+                <div class="row">
+                    @foreach (var review in ViewBag.Reviews)
                     {
-                        <li>
-                            <p><strong>Username: @review.User.UserName</strong></p
-                            <p>Rating: @review.Rating</p>
-                            <p>Review: @review.ReviewContent</p>
-                        </li>
+                        <div class="col-md-12 mt-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Username: @review.User.UserName</h5>
+                                    <p class="card-text">Rating: @review.Rating</p>
+                                    <p class="card-text">Review: @review.ReviewContent</p>
+                                </div>
+                            </div>
+                        </div>
                     }
-                </ul>
+                </div>
             }
             else
             {
@@ -107,5 +110,9 @@
             }
         </div>
     </div>
+
+
+
+    
 </body>
 </html>

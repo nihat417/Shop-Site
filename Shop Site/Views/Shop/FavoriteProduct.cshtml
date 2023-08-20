@@ -30,7 +30,7 @@
                                     <tr>
                                         <td><a href="@Url.Action("Info","Shop",new { id = product.Id})">@product.Title</a></td>
                                         <td>@product.Price</td>
-                                        <td><button class="remove-button" data-product-id="@product.Id">X</button></td>
+                                        <td><button id="remove-button" data-product-id="@product.Id" type="button" class="btn btn-danger">remove</button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -47,22 +47,23 @@
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $(".plus-button").click(function () {
-            var productId = $(this).data("product-id");
-            var input = $("input[data-product-id='" + productId + "']");
-            var currentValue = parseInt(input.val());
-            input.val(currentValue + 1);
-        });
+        $("#remove-button").click(function () {
+            console.log("Remove button clicked");
+            var removeButton = $(this);
 
-        $(".minus-button").click(function () {
-            var productId = $(this).data("product-id");
-            var input = $("input[data-product-id='" + productId + "']");
-            var currentValue = parseInt(input.val());
-            if (currentValue > 1) {
-                input.val(currentValue - 1);
-            }
+            var productId = removeButton.data("product-id");
+            console.log("Product ID: " + productId);
+
+            $.post("/Shop/RemoveFavorite", { Id: productId }, function (data) {
+                if (data) { 
+                    removeButton.closest("tr").remove();
+                }
+            });
         });
     });
 </script>
+

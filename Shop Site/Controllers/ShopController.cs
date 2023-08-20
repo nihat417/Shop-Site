@@ -39,6 +39,19 @@ namespace Shop_Site.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RemoveFavorite(string Id)
+        {
+            var product= await context.Products.FindAsync(Id);
+            if (product != null)
+            {
+                product.IsFavorite = false ;
+                await context.SaveChangesAsync();
+                return Ok(true);
+            }
+            return NotFound();
+        }
+
         [HttpGet]
         public IActionResult Info(string id)
         {
