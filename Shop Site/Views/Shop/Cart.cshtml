@@ -85,14 +85,18 @@
             updateTotalPrice();
         });
 
-        $(".remove-from-cart-button").click(function () {
+        $(document).on("click", ".remove-from-cart-button", function () {
             var productId = $(this).data("product-id");
-            var modalBody = $("#myModal .modal-body"); 
+            var tableBody = $("#myModal .table tbody");
 
             $.post("/Shop/RemoveFromCart", { id: productId }, function (data) {
                 if (data) {
-                    modalBody.html(data); 
-                    updateTotalPrice(); 
+                    tableBody.html($(data).find(".table tbody").html());
+                    updateTotalPrice();
+
+                    if (tableBody.children().length === 0) {
+                        $('#myModal').modal('hide');
+                    }
                 }
             });
         });
