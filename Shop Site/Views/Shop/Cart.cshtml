@@ -38,7 +38,7 @@
                                                 <button class="btn btn-sm btn-secondary plus-button" data-product-id="@product.Product.Id">+</button>
                                             </div>
                                         </td>
-                                        <td><button class="remove-button" data-product-id="@product.Product.Id">X</button></td>
+                                        <td><button class="btn btn-sm btn-danger remove-from-cart-button" data-product-id="@product.Product.Id">Remove</button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -72,6 +72,16 @@
             if (currentValue > 1) {
                 input.val(currentValue - 1);
             }
+        });
+
+        $(".remove-from-cart-button").click(function () {
+            var productId = $(this).data("product-id");
+
+            $.post("/Shop/RemoveFromCart", { id: productId }, function (data) {
+                if (data) {
+                    location.reload();
+                }
+            });
         });
     });
 </script>

@@ -95,16 +95,17 @@ namespace Shop_Site.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public IActionResult RemoveFromCart(string id)
+        {
+            httpContextAccessor.HttpContext.Session?.RemoveFromCart(id);
+            return RedirectToAction("Cart");
+        }
+
         public IActionResult Cart()
         {
             var cart = httpContextAccessor.HttpContext.Session.GetCart();
             return PartialView(cart);
-        }
-
-        public IActionResult RemoveFromCart(string id)
-        {
-            httpContextAccessor.HttpContext.Session.RemoveFromCart(id);
-            return RedirectToAction("Cart");
         }
 
         public IActionResult BuyedProducts()
