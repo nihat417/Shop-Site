@@ -81,13 +81,10 @@
 
 <script>
     $(document).ready(function () {
-        // ... (your existing JavaScript code) ...
-
-        // Open rating modal when "Add Comment" button is clicked
         $(".add-comment-button").click(function () {
             var productId = $(this).data("product-id");
-            $("#productId").val(productId); // Set the product ID in the hidden field
-            $("#ratingModal").modal("show"); // Open the rating modal
+            $("#productId").val(productId); 
+            $("#ratingModal").modal("show");
         });
     });
 
