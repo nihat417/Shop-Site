@@ -14,7 +14,12 @@ builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(builder.
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 builder.Services.Configure<IdentityOptions>(op=>op.SignIn.RequireConfirmedEmail = true);
 
-var emailConfig=builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+
+
+var emailConfig =builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 
 builder.Services.AddSingleton(emailConfig);
 builder.Services.AddScoped<IEmailService,EmailService>();

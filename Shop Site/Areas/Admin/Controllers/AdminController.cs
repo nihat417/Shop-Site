@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Shop_Site.Data;
 using Shop_Site.Helpers;
 using Shop_Site.Models.ViewModel;
 using Shop_Site.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Shop_Site.Repository;
 
 namespace Shop_Site.Areas.Admin.Controllers
 {
@@ -13,30 +12,34 @@ namespace Shop_Site.Areas.Admin.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly AppDbContext context;
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IBrandRepository _brandRepository;
 
-        public AdminController(AppDbContext context)
+        public AdminController(IProductRepository _productRepository, ICategoryRepository _categoryRepository, IBrandRepository _brandRepository)
         {
-            this.context = context;
+            this._productRepository = _productRepository;
+            this._categoryRepository = _categoryRepository;
+            this._brandRepository = _brandRepository;
         }
 
-        public IActionResult AdminPage()
+        public async Task<IActionResult> AdminPage()
         {
-            return View(context.Products.ToList());
+            var products = await _productRepository.GetAllAsync();
+            return View(products);
         }
 
         public async Task<IActionResult> DeleteProduct(string id)
         {
             try
             {
-                var product = await context.Products.FindAsync(id);
+                var product = await _productRepository.GetByIdAsync(id);
                 if (product == null)
                 {
                     return NotFound();
                 }
 
-                context.Products.Remove(product);
-                await context.SaveChangesAsync();
+                await _productRepository.DeleteAsync(product);
                 return RedirectToAction("AdminPage");
             }
             catch (Exception)
@@ -45,12 +48,18 @@ namespace Shop_Site.Areas.Admin.Controllers
             }
         }
 
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
-            ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
-            ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
+            var categories = await _categoryRepository.GetAllAsync();
+            var brands = await _brandRepository.GetAllAsync();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Brands = new SelectList(brands, "Id", "Name");
+
             return View();
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel vm)
@@ -60,7 +69,7 @@ namespace Shop_Site.Areas.Admin.Controllers
                 try
                 {
                     string path = (vm.ImageUrl != null) ? await UploadFileHelper.UploadFile(vm.ImageUrl) : "";
-                    Products product = new()
+                    var product = new Products
                     {
                         ImageUrl = path,
                         Title = vm.Title,
@@ -70,8 +79,7 @@ namespace Shop_Site.Areas.Admin.Controllers
                         CategoryId = vm.CategoryId,
                         BrandId = vm.BrandId,
                     };
-                    context.Add(product);
-                    await context.SaveChangesAsync();
+                    await _productRepository.AddAsync(product);
                     return RedirectToAction("AdminPage");
                 }
                 catch (Exception)
@@ -79,19 +87,29 @@ namespace Shop_Site.Areas.Admin.Controllers
                     return View("error.cshtml");
                 }
             }
-            ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
-            ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
+
+            var categories = await _categoryRepository.GetAllAsync();
+            var brands = await _brandRepository.GetAllAsync();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Brands = new SelectList(brands, "Id", "Name");
+
             return View(vm);
         }
+
 
         public async Task<IActionResult> EditProduct(string Id)
         {
             try
             {
-                var product = await context.Products.FindAsync(Id);
+                var product = await _productRepository.GetByIdAsync(Id);
                 if (product == null) { return NotFound(); }
-                ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
-                ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
+
+                var categories = await _categoryRepository.GetAllAsync();
+                var brands = await _brandRepository.GetAllAsync();
+
+                ViewBag.Categories = new SelectList(categories, "Id", "Name");
+                ViewBag.Brands = new SelectList(brands, "Id", "Name");
 
                 var ViewModel = new AddProductViewModel
                 {
@@ -102,14 +120,14 @@ namespace Shop_Site.Areas.Admin.Controllers
                     CategoryId = product.CategoryId,
                 };
                 return View(ViewModel);
-
-
             }
             catch (Exception)
             {
                 return View("error");
             }
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> EditProduct(AddProductViewModel vm)
@@ -118,19 +136,21 @@ namespace Shop_Site.Areas.Admin.Controllers
             {
                 try
                 {
-                    var product = await context.Products.FirstOrDefaultAsync(p => p.Id == vm.Id);
+                    var product = await _productRepository.GetByIdAsync(vm.Id);
 
-					if (product == null)
+                    if (product == null)
                     {
                         return NotFound();
                     }
+
                     product.Title = vm.Title;
                     product.Description = vm.Description;
                     product.Price = vm.Price;
                     product.CategoryId = vm.CategoryId;
                     product.BrandId = vm.BrandId;
 
-                    await context.SaveChangesAsync();
+                    await _productRepository.UpdateAsync(product);
+
                     return RedirectToAction("AdminPage");
                 }
                 catch (Exception)
@@ -138,8 +158,13 @@ namespace Shop_Site.Areas.Admin.Controllers
                     return View("Error");
                 }
             }
-            ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
-            ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
+
+            var categories = await _categoryRepository.GetAllAsync();
+            var brands = await _brandRepository.GetAllAsync();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Brands = new SelectList(brands, "Id", "Name");
+
             return View(vm);
         }
     }
