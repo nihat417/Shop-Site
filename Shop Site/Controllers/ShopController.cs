@@ -125,27 +125,61 @@ namespace Shop_Site.Controllers
         }
 
         [HttpPost]
-        public IActionResult BuyProduct(string id)
+        public IActionResult BuyProduct(Dictionary<string, int> productCounts)
         {
-            var product = context.Products.Find(id);
-            if (product != null)
+
+            foreach (var productId in productCounts.Keys)
+            {
+                var product = context.Products.Find(productId);
+                int productCount = productCounts[productId];
+                if (product != null && product.StockQuantity >= productCount)
+                {
+                    var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+                    if (user != null)
+                    {
+                        var purchasedProduct = new PurchasedProduct
+                        {
+                            ProductId = product.Id,
+                            ProductCount = productCount,
+                            ProductName = product.Title,
+                            User = user
+                        };
+                        context.PurchasedProducts.Add(purchasedProduct);
+
+                        product.StockQuantity -= productCount;
+
+                        context.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult BuyProductFast(string id)
+        {
+            var product=context.Products.Find(id);
+            var refererUrl = HttpContext.Request.Headers["Referer"].ToString();
+            if(product != null && product.StockQuantity > 0)
             {
                 var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
-
                 if (user != null)
                 {
-                    var purchasedProduct = new PurchasedProduct
+                    var purchasedProduct = new PurchasedProduct()
                     {
-                        ProductId = id,
+                        ProductId = product.Id,
                         ProductCount = 1,
                         ProductName = product.Title,
                         User = user
                     };
+                    product.StockQuantity -= 1;
                     context.PurchasedProducts.Add(purchasedProduct);
                     context.SaveChanges();
+                    return Redirect(refererUrl);
                 }
             }
-            return RedirectToAction("Index");
+            return NotFound();
         }
 
         [HttpPost]

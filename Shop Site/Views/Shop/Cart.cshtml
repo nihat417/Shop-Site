@@ -2,67 +2,63 @@
 
 <link rel="stylesheet" href="~/css/site.css" />
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Your Cart Products</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-            </div>
-            <div class="modal-body">
-                @if (Model.Count == 0)
-                {
-                    <p>You have no products in carts.</p>
-                }
-                else
-                {
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Price</th>
-                                    <th>Count</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var product in Model)
-                                {
-                                    <tr>
-                                        <td><a href="@Url.Action("Info","Shop",new { id = product.Product.Id})">@product.Product.Title</a></td>
-                                        <td>@(product.Product.Price * product.Quantity)</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <button class="btn btn-sm btn-secondary minus-button" data-product-id="@product.Product.Id">-</button>
-                                                <input type="text" style="width:10px;" class="form-control quantity-input" value="@product.Quantity" data-product-id="@product.Product.Id">
-                                                <button class="btn btn-sm btn-secondary plus-button" data-product-id="@product.Product.Id">+</button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn btn-sm btn-danger remove-from-cart-button" data-product-id="@product.Product.Id">Remove</button></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <div class="total-price">
-                            Total Price: @Model.Sum(product => product.Product.Price * product.Quantity)
-                        </div>
-                    </div>
-                }
-            </div>
-            <div class="modal-overlay"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                <form asp-controller="Shop" asp-action="BuyProduct" method="post">
-                    @foreach(var product in Model)
+    <form asp-controller="Shop" asp-action="BuyProduct" method="post">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Your Cart Products</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (Model.Count == 0)
                     {
-                        <input type="hidden" asp-for="@product.Product.Id" />
+                        <p>You have no products in carts.</p>
                     }
-                    <button type="submit" class="btn btn-primary">Buy
-                    </button>
-                </form>
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Count</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in Model)
+                                    {
+                                        <input type="hidden" name="id" value="@product.Product.Id" />
+                                        <tr>
+                                            <td><a href="@Url.Action("Info","Shop",new { id = product.Product.Id})">@product.Product.Title</a></td>
+                                            <td>@(product.Product.Price * product.Quantity)</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <button class="btn btn-sm btn-secondary minus-button" data-product-id="@product.Product.Id">-</button>
+                                                    <input type="number" name="productCounts[@product.Product.Id]" class="form-control quantity-input" style="width: 40px;" />
+                                                    <button class="btn btn-sm btn-secondary plus-button" data-product-id="@product.Product.Id">+</button>
+                                                </div>
+                                            </td>
+                                            <td><button class="btn btn-sm btn-danger remove-from-cart-button" data-product-id="@product.Product.Id">Remove</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="total-price">
+                                Total Price: @Model.Sum(product => product.Product.Price * product.Quantity)
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-overlay"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary">Buy</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -71,22 +67,17 @@
     $(document).ready(function () {
 
         checkAndToggleBuyButton();
-        $(".plus-button").click(function () {
-            var productId = $(this).data("product-id");
-            var input = $("input[data-product-id='" + productId + "']");
-            var currentValue = parseInt(input.val());
+        $(".minus-button, .plus-button").on("click", function () {
+            var inputField = $(this).closest(".input-group").find(".quantity-input");
+            var currentValue = parseInt(inputField.val());
+            var increment = $(this).hasClass("minus-button") ? -1 : 1;
 
-            input.val(currentValue + 1);
-            updateTotalPrice();
-        });
+            if (currentValue + increment >= 0) {
+                inputField.val(currentValue + increment);
+                inputField.trigger("change"); 
 
-        $(".minus-button").click(function () {
-            var productId = $(this).data("product-id");
-            var input = $("input[data-product-id='" + productId + "']");
-            var currentValue = parseInt(input.val());
-            if (currentValue > 1) {
-                input.val(currentValue - 1);
-                updateTotalPrice();
+                var productCountField = inputField.closest("tr").find("[name='productCount']");
+                productCountField.val(currentValue + increment);
             }
         });
 
