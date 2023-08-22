@@ -1,33 +1,110 @@
 ﻿@model List<Products>
 
+@{
+	Layout = null;
+}
+
 <head>
 	<link rel="stylesheet" href="~/css/style.css" />
-</head>
-<div class="container">
-
-	<div class="table">
-		<div class="table-header">
-			<div class="header__item"><a id="name" class="filter__link" href="#">Title</a></div>
-			<div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Price</a></div>
-			<div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Brand</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Category</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="/Foradmin/Admin/AddProduct">Add</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Edit</a></div>
-			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Delete</a></div>
-		</div>
-		@foreach (var products in Model)
-		{
-			<div class="table-content">
-				<div class="table-row">
-					<div class="table-data">@products.Title</div>
-					<div class="table-data">@products.Price</div>
-					<div class="table-data">@products.brand.Name</div>
-					<div class="table-data">@products.category.Name</div>
-					<div class="table-data"><a class="btn btn-warning" href="/foradmin/Admin/AddProduct">Add</a></div>
-					<div class="table-data"><a class="btn btn-warning" href="@Url.Action("EditProduct"  ,"Admin", new { area = "Admin",  id = products.Id })">Edit</a></div>
-					<div class="table-data"><a class="btn btn-warning" href="@Url.Action("DeleteProduct","Admin", new { area = "Admin" , id = products.Id })">Delete</a></div>
-				</div>
-			</div>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
 		}
+		.navigation {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem;
+			background-color: #1D1E2C;
+			color: white;
+		}
+
+		.navigation-icons {
+			display: flex;
+			align-items: center;
+		}
+
+			.navigation-icons i {
+				font-size: 1.5rem;
+				margin: 0 1rem;
+				cursor: pointer;
+			}
+
+		.settings-dropdown {
+			position: relative;
+		}
+
+			.settings-dropdown select {
+				padding: 0.5rem;
+				border: none;
+				border-radius: 5px;
+				background-color: #f2f2f2;
+				appearance: none;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				cursor: pointer;
+			}
+	</style>
+</head>
+
+<div class="navigation">
+	<div class="navigation-icons">
+		<i class="fas fa-bars"></i>
+		<i class="fas fa-cog"></i>
 	</div>
+	<div class="settings-dropdown">
+		<select>
+			<option value="option1">Option 1</option>
+			<option value="option2">Option 2</option>
+			<option value="option3">Option 3</option>
+		</select>
+	</div>
+</div>
+
+<div class="table-products">
+    <div class="header">Products</div>
+
+    <table cellspacing="0">
+        <tr>
+			<th> <a href="@Url.Action("AdminPage", "Admin", new { area = "Admin", sortOrder = ViewData["TitleSortParam"] })" style="display:flex;justify-content:center">Title</a></th>
+			<th> <a href="@Url.Action("AdminPage", "Admin", new { area = "Admin", sortOrder = ViewData["PriceSortParam"] })" style="display:flex;justify-content:center">Price</a></th>
+			<th> <a href="@Url.Action("AdminPage", "Admin", new { area = "Admin", sortOrder = ViewData["BrandSortParam"] })" style="display:flex;justify-content:center">Brand</a></th>
+			<th> <a href="@Url.Action("AdminPage", "Admin", new { area = "Admin", sortOrder = ViewData["CategorySortParam"] })" style="display:flex;justify-content:center">Category</a></th>
+			<th><a style="display:flex;justify-content:center" href="/Foradmin/Admin/AddProduct">Add</a></th>
+			<th><span style="display:flex;justify-content:center">Edit</span></th>
+			<th><span style="display:flex;justify-content:center">Delete</span></th>
+        </tr>
+		@foreach(var products in Model)
+		{
+			<tr>
+				<td><span style="display:flex;justify-content:center">@products.Title</span></td>
+				<td><span style="display:flex;justify-content:center">@products.Price</span></td>
+				<td><span style="display:flex;justify-content:center">@products.brand.Name</span></td>
+				<td><span style="display:flex;justify-content:center">@products.category.Name</span></td>
+				<td><a class="btn btn-warning" style="display:flex;justify-content:center" href="/foradmin/Admin/AddProduct" >Add</a></td>
+				<td><a class="btn btn-warning" style="display:flex;justify-content:center" href="@Url.Action("EditProduct"  ,"Admin", new { area = "Admin",  id = products.Id })">Edit</a></td>
+				<td><a class="btn btn-warning" style="display:flex;justify-content:center" href="@Url.Action("DeleteProduct","Admin", new { area = "Admin" , id = products.Id })">Delete</a></td>
+			</tr>
+		}
+    </table>
+</div>
+
+
+<div class="table-users">
+	<div class="header">Users</div>
+	<table cellspacing="0">
+		<tr>
+			<th>Username</th>
+			<th>ID</th>
+		</tr>
+		@foreach (var user in ViewBag.Users)
+		{
+			<tr>
+				<td>@user.UserName</td>
+				<td>@user.Id</td>
+			</tr>
+		}
+	</table>
 </div>

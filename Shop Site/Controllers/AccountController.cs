@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop_Site.Models;
 using Shop_Site.Models.ViewModel;
-using Shop_Site.Repository;
+using Shop_Site.Repository.Interfaces;
 
 namespace Shop_Site.Controllers
 {

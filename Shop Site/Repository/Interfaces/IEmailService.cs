@@ -1,6 +1,6 @@
 ﻿using Shop_Site.Models;
 
-namespace Shop_Site.Repository
+namespace Shop_Site.Repository.Interfaces
 {
     public interface IEmailService
     {

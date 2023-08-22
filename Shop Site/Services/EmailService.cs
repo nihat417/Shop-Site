@@ -1,8 +1,7 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using Shop_Site.Models;
-using Shop_Site.Repository;
-
+using Shop_Site.Repository.Interfaces;
 
 namespace Shop_Site.Services
 {
