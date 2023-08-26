@@ -24,6 +24,7 @@
 		.navigation-icons {
 			display: flex;
 			align-items: center;
+			padding: 0.5rem;
 		}
 
 			.navigation-icons i {
@@ -51,16 +52,10 @@
 
 <div class="navigation">
 	<div class="navigation-icons">
-		<i class="fas fa-bars"></i>
+		<a asp-area="" asp-controller="Shop" asp-action="Index"><b>Online Shop</b></a>
 		<i class="fas fa-cog"></i>
 	</div>
-	<div class="settings-dropdown">
-		<select>
-			<option value="option1">Option 1</option>
-			<option value="option2">Option 2</option>
-			<option value="option3">Option 3</option>
-		</select>
-	</div>
+	
 </div>
 
 <div class="table-products">
@@ -102,8 +97,8 @@
 		@foreach (var user in ViewBag.Users)
 		{
 			<tr>
-				<td>@user.UserName</td>
-				<td>@user.Id</td>
+				<td><span style="display:flex;justify-content:center">@user.UserName</span></td>
+				<td><span style="display:flex;justify-content:center">@user.Id</span></td>
 			</tr>
 		}
 	</table>

@@ -5,57 +5,73 @@
 }
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 <head>
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/css/reg.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2 class="text-center text-dark mt-5">Login Form</h2>
-                <div class="card my-5">
-
-                    <form class="card-body cardbody-color p-lg-5" asp-controller="Account" asp-action="Login" method="post">
-                        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
-                        <div class="text-center">
-                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                 width="200px" alt="profile">
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="text" asp-for="Email" class="form-control" id="Email" aria-describedby="emailHelp"
-                                   placeholder="Email">
-                            <span asp-validation-for="Email"></span>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" asp-for=Password class="form-control" id="password" placeholder="password">
-                            <span asp-validation-for="Password"></span>
-                        </div>
-                        <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
-                        <div class="form-check d-flex justify-content-start mb-5">
-                            <input class="form-check-input me-2" type="checkbox" asp-for="RememberMe" />
-                            <label class="form-check-label" for="form2Example3">
-                                RememberMe
-                            </label>
-                        </div>
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">
-                            Not
-                            Registered? <a href="/Account/Register" class="text-dark fw-bold">
-                                Create an
-                                Account
-                            </a>
-                        </div>
-                    </form>
+    <main class="main">
+        <div class="wrapper">
+            <div class="card">
+                <div class="title">
+                    <h1 class="title title-large">Sign In</h1>
+                </div>
+                <form class="form" asp-controller="Account" asp-action="Login" method="post">
+                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                    <div class="form-group">
+                        <input type="email" asp-for="Email" name="email" id="email" class="input-field" placeholder="Email address">
+                    </div>
+                    <span asp-validation-for="Email" class="danger-text"></span>
+                    <div class="form-group mt-2">
+                        <input type="password" asp-for="Password" name="password" id="password" class="input-field" placeholder="Password">
+                    </div>
+                    <span asp-validation-for="Password" class="danger-text"></span>
+                    <div class="btnlg mt-2">
+                        <button type="submit" name="submit" class="input-submit">Login</button>
+                    </div>
+                    <p class="title title-subs mt-3 center-text">
+                        New user?
+                        <span><a href="/Account/Register" class="linktext">Create an account</a></span>
+                    </p>
+                    <p class="title title-subs mt-3 center-text">
+                        <span><a href="/Account/ForgotPassword" class="linktext">Forgot Password</a></span>
+                    </p>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </form>
+                <div class="line">
+                    <span class="line-bar"></span>
+                    <span class="line-text">Or</span>
+                    <span class="line-bar"></span>
+                </div>
+                <div class="method">
+                    <div class="method-item">
+                        <a href="#" class="btn-action">
+                            <i class="icons icons-google fab fa-google"></i>
+                            <span>Sign in with Google</span>
+                        </a>
+                    </div>
+                    <div class="method-item">
+                        <a href="#" class="btn-action">
+                            <i class="icons icons-facebook fab fa-facebook"></i>
+                            <span>Sign in with Facebook</span>
+                        </a>
+                    </div>
+                    <div class="method-item">
+                        <a href="#" class="btn-action">
+                            <i class="icons icons-apple fab fa-apple"></i>
+                            <span>Sign in with Apple</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>
+
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

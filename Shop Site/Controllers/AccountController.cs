@@ -117,5 +117,30 @@ namespace Shop_Site.Controllers
             }
             return View();
         }
+
+		[HttpPost]
+		public async Task<IActionResult>ForgotPassword(string email)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+			if(user != null)
+			{
+				var token = userManager.GeneratePasswordResetTokenAsync(user);
+				var newlink = Url.Action("ResetPassword" , "Account" , new { token, email = user.Email }, Request.Scheme);
+				var message = new Message(new string[] { user.Email }, "Forgot password link", newlink!);
+				_emailService.SendEmail(message);
+			}
+			return View();
+		}
+
+		public async Task<IActionResult> ResetPassword(string token , string email)
+		{
+			var user = await userManager.FindByEmailAsync (email);
+			if(user != null)
+			{
+				var modelvm = new ResetPasswordViewModel { Token =token , Email = email };
+                return View(modelvm);
+            }
+			return View();
+		}
     }
 }

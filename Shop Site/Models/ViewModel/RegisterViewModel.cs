@@ -19,7 +19,7 @@ namespace Shop_Site.Models.ViewModel
         public string Password { get; set; } = null!;
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password")]
+        [Compare("Password",ErrorMessage ="The Password and Confirm Password do not match")]
         public string ConfirmPassword { get; set; } = null!;
     }
 }
