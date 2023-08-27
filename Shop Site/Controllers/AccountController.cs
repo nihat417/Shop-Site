@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 using Shop_Site.Models;
 using Shop_Site.Models.ViewModel;
 using Shop_Site.Repository.Interfaces;
@@ -69,21 +70,25 @@ namespace Shop_Site.Controllers
 				{
 					if(await userManager.IsEmailConfirmedAsync(user))
 					{
-                        var result = await signInManager.PasswordSignInAsync(user, vm.Password, vm.RememberMe, true);
-
-                        if (result.Succeeded)
+                        if (user.LockoutEnabled == true) 
                         {
-							if(await userManager.IsInRoleAsync(user,"Admin"))
-							{
-								return Redirect("/foradmin");
-							}
+                            var result = await signInManager.PasswordSignInAsync(user, vm.Password, vm.RememberMe, true);
 
-                            if (!string.IsNullOrWhiteSpace(ReturnUrl))
-                                return Redirect(ReturnUrl);
-                            return Redirect("/");
+                            if (result.Succeeded)
+                            {
+							    if(await userManager.IsInRoleAsync(user,"Admin"))
+							    {
+								    return Redirect("/foradmin");
+							    }
+
+                                if (!string.IsNullOrWhiteSpace(ReturnUrl))
+                                    return Redirect(ReturnUrl);
+                                return Redirect("/");
+                            }
+                            else if (result.IsLockedOut)
+                                ModelState.AddModelError("All", "Lockout");
                         }
-                        else if (result.IsLockedOut)
-                            ModelState.AddModelError("All", "Lockout");
+                        else { return View("BlockPage"); }
                     }
                     else
                         ModelState.AddModelError("All", "Mail has not confired yet!!");
@@ -118,29 +123,67 @@ namespace Shop_Site.Controllers
             return View();
         }
 
-		[HttpPost]
-		public async Task<IActionResult>ForgotPassword(string email)
-		{
-			var user = await userManager.FindByEmailAsync(email);
-			if(user != null)
-			{
-				var token = userManager.GeneratePasswordResetTokenAsync(user);
-				var newlink = Url.Action("ResetPassword" , "Account" , new { token, email = user.Email }, Request.Scheme);
-				var message = new Message(new string[] { user.Email }, "Forgot password link", newlink!);
-				_emailService.SendEmail(message);
-			}
-			return View();
-		}
+		public IActionResult ForgotPassword() => View();
 
-		public async Task<IActionResult> ResetPassword(string token , string email)
-		{
-			var user = await userManager.FindByEmailAsync (email);
-			if(user != null)
-			{
-				var modelvm = new ResetPasswordViewModel { Token =token , Email = email };
-                return View(modelvm);
+        [HttpPost]
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> ForgotPassword(ForgotViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(vm.Email);
+                if (user != null)
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                    var newlink = Url.Action("ResetPassword", "Account", new { token, email = user.Email }, Request.Scheme);
+                    var message = new Message(new string[] { user.Email }, "Forgot password link", newlink!);
+                     _emailService.SendEmail(message); 
+                    return View("ForgotPasswordConfirmation");
+                }
+                ModelState.AddModelError(string.Empty, "User not found");
             }
-			return View();
-		}
+            return View();
+        }
+
+        public IActionResult ResetPassword(string token ,string email)
+        {
+            var viewModel = new ResetPasswordViewModel
+            {
+                Token = token,
+                Email = email
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(vm.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "User not found");
+                    return View(vm);
+                }
+
+                var result = await userManager.ResetPasswordAsync(user, vm.Token, vm.Password);
+
+                if (result.Succeeded)
+                {
+                    return View("ResetPasswordConfirmation");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(vm);
+        }
+
     }
 }

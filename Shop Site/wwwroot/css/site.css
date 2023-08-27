@@ -44,28 +44,13 @@ a:not([href]):not([class]):hover {
 }
 
 
-nav ul li a {
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 8px 15px;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
-
 nav ul li a.active,
 nav ul li a:hover {
     color: #111;
     background: #fff;
 }
 
-nav .menu-btn i {
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-    display: none;
-}
+
 
 input[type="checkbox"] {
     display: none;
@@ -171,21 +156,6 @@ input[type="checkbox"] {
 
 
 
-
-.submenu {
-    display: none;
-    position: absolute;
-    right: 0; 
-    top: 100%;
-    background-color: white;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    width: 300px;
-    transition: opacity 0.3s ease; 
-}
 
 .menu-item {
     position: relative;

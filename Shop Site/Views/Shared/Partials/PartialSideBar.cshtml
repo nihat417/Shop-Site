@@ -1,15 +1,49 @@
-﻿<nav>
+﻿
+
+
+<style>
+    nav ul li {
+        margin: 0 5px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+    .submenu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 2;
+        width: 300px;
+        transition: opacity 0.3s ease;
+    }
+</style>
+
+<nav style="display:flex;">
     <div class="logo">
         <a asp-area="" asp-controller="Shop" asp-action="Index">Online Shop</a>
     </div>
     <input type="checkbox" id="click">
-    <label for="click" class="menu-btn">
-        <i class="fas fa-bars"></i>
+    <label  for="click" class="menu-btn">
+        <i  class="fas fa-bars"></i>
     </label>
     <ul>
-        <li><a id="ProductCarts"><i class='fas fa-shopping-cart'></i></a></li>
+        <li><a id="ProductCarts"><i style="color: #FF0000;" class='fas fa-shopping-cart'></i></a></li>
         <li class="menu-item">
-            <a><i class="fa fa-user" aria-hidden="true"></i></a>
+            <a><i style="color: #FF0000;" class="fa fa-user" aria-hidden="true"></i></a>
             <ul class="submenu">
                 <li><a style="font-size:1rem; color: black;">@User.Identity.Name</a></li>
                 <li><a style="font-size:1rem; color: black;" id="favoritesProducts">Favorites</a></li>

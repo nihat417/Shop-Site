@@ -187,5 +187,27 @@ namespace Shop_Site.Areas.Admin.Controllers
             ViewBag.Brands = new SelectList(context.Brands, "Id", "Name");
             return View(vm);
         }
-    }
+
+        public async Task<IActionResult> LockUser(string Id)
+        {
+            var user = await userManager.FindByIdAsync(Id);
+			if (user != null)
+            {
+                user.LockoutEnabled = false;
+                await userManager.UpdateAsync(user);
+            }
+			return RedirectToAction("AdminPage");
+		}
+
+		public async Task<IActionResult> UnlockUser(string id)
+		{
+			var user = await userManager.FindByIdAsync(id);
+			if (user != null)
+			{
+				user.LockoutEnabled = true;
+				await userManager.UpdateAsync(user);
+			}
+			return RedirectToAction("AdminPage");
+		}
+	}
 }

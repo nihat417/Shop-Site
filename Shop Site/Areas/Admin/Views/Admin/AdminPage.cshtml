@@ -91,14 +91,27 @@
 	<div class="header">Users</div>
 	<table cellspacing="0">
 		<tr>
-			<th>Username</th>
 			<th>ID</th>
+			<th>Username</th>
+			<th>Phone Numbers</th>
+			<th>Lock user</th>
 		</tr>
 		@foreach (var user in ViewBag.Users)
 		{
 			<tr>
-				<td><span style="display:flex;justify-content:center">@user.UserName</span></td>
 				<td><span style="display:flex;justify-content:center">@user.Id</span></td>
+				<td><span style="display:flex;justify-content:center">@user.UserName</span></td>
+				<td><span style="display:flex;justify-content:center">@user.PhoneNumber</span></td>
+				<td>
+					@if (user.LockoutEnabled)
+					{
+						<a class="btn btn-danger" style="display:flex;justify-content:center" href="@Url.Action("LockUser", "Admin", new { area = "Admin", id = user.Id })">Lock</a>
+					}
+					else
+					{
+						<a class="btn btn-success" style="display:flex;justify-content:center" href="@Url.Action("UnlockUser", "Admin", new { area = "Admin", id = user.Id })">Unlock</a>
+					}
+				</td>
 			</tr>
 		}
 	</table>
