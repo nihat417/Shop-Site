@@ -76,9 +76,10 @@ namespace Shop_Site.Controllers
             return View(products);
         }
 
-        public async Task<IActionResult> LoadMoreProducts(int skip)
+        [HttpGet]
+        public async Task<IActionResult> LoadMoreProducts(int skip, int take) 
         {
-            var products = await context.Products.Skip(skip).Take(12).ToListAsync();
+            var products = await context.Products.Skip(skip).Take(take).ToListAsync();
             return PartialView("LoadedProducts", products);
         }
 
@@ -88,7 +89,7 @@ namespace Shop_Site.Controllers
             var product = context.Products.Find(id);
             if (product != null)
             {
-                httpContextAccessor.HttpContext.Session.AddToCart(product, quantity);
+                httpContextAccessor.HttpContext!.Session.AddToCart(product, quantity);
                 return RedirectToAction("Index");
             }
 
@@ -98,15 +99,15 @@ namespace Shop_Site.Controllers
         [HttpPost]
         public IActionResult RemoveFromCart(string id)
         {
-            httpContextAccessor.HttpContext.Session?.RemoveFromCart(id);
-            var cart = httpContextAccessor.HttpContext.Session.GetCart();
+            httpContextAccessor.HttpContext!.Session?.RemoveFromCart(id);
+            var cart = httpContextAccessor.HttpContext.Session?.GetCart();
             var totalPrice = CartItem.CalculateTotalPrice(cart);
             return PartialView("Cart", cart);
         }
 
         public IActionResult Cart()
         {
-            var cart = httpContextAccessor.HttpContext.Session.GetCart();
+            var cart = httpContextAccessor.HttpContext!.Session.GetCart();
             return PartialView(cart);
         }
 
@@ -211,5 +212,13 @@ namespace Shop_Site.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> SearchProducts(string searchTerm)
+        {
+            var products =await context.Products.ToListAsync();
+            var searchResults = products.FindAll(product => product.Title.Contains(searchTerm));
+            return PartialView("SearchProducts" , searchResults);
+        }
+
     }
 }

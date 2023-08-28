@@ -1,6 +1,6 @@
 ﻿@model List<Products>
 
-<div class="productContainer" id="productContainer">
+<div class="container" id="container">
     @await Html.PartialAsync("LoadedProducts", Model)
 </div>
 
@@ -9,18 +9,12 @@
 </div>
 
 <script>
-    var skip = 12; 
-    var take = 12; 
+    var skip = 12;
+    var take = 12;
 
     $(document).ready(function () {
         $("#loadMoreBtn").click(function () {
             loadMoreProducts();
-        });
-
-        $(window).scroll(function () {
-            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                loadMoreProducts();
-            }
         });
     });
 
@@ -28,11 +22,11 @@
         $.ajax({
             url: '@Url.Action("LoadMoreProducts", "Shop")',
             type: 'GET',
-            data: { skip: skip },
+            data: { skip: skip, take: take },
             success: function (data) {
                 if (data.length > 0) {
-                    $("#productContainer").append(data); 
-                    skip += take; 
+                    $("#container").append(data);
+                    skip += take;
                 } else {
                     $("#loadMoreBtnContainer").html("<p>There are no more products</p>");
                     $("#loadMoreBtn").remove();

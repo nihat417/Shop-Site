@@ -30,7 +30,7 @@
                                     <tr>
                                         <td><a href="@Url.Action("Info","Shop",new { id = product.Id})">@product.Title</a></td>
                                         <td>@product.Price</td>
-                                        <td><button id="remove-button" data-product-id="@product.Id" type="button" class="btn btn-danger">remove</button></td>
+                                        <td><button class="remove-button btn btn-danger" data-product-id="@product.Id" type="button">remove</button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -51,7 +51,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $("#remove-button").click(function () {
+        $(".remove-button").click(function () {
             console.log("Remove button clicked");
             var removeButton = $(this);
 
@@ -59,7 +59,7 @@
             console.log("Product ID: " + productId);
 
             $.post("/Shop/RemoveFavorite", { Id: productId }, function (data) {
-                if (data) { 
+                if (data) {
                     removeButton.closest("tr").remove();
                 }
             });

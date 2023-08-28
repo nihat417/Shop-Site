@@ -85,13 +85,15 @@
             updateTotalPrice();
         });
 
-        $(".remove-from-cart-button").click(function () {
+        $(".remove-from-cart-button").click(function (event) {
+            event.preventDefault(); // Prevent the default behavior of the button click
+
             var productId = $(this).data("product-id");
-            var rowToRemove = $(this).closest("tr"); 
+            var rowToRemove = $(this).closest("tr");
 
             $.post("/Shop/RemoveFromCart", { id: productId }, function (data) {
                 if (data) {
-                    rowToRemove.remove(); 
+                    rowToRemove.remove();
                     updateTotalPrice();
 
                     var modalBody = $("#myModal .table tbody");
@@ -102,7 +104,7 @@
                         $('#myModal').modal('hide');
                     }
                     else {
-                        $(".modal-footer .btn-primary").removeAttr("disabled"); 
+                        $(".modal-footer .btn-primary").removeAttr("disabled");
                     }
                 }
             });
