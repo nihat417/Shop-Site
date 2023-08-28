@@ -47,6 +47,23 @@
 				-moz-appearance: none;
 				cursor: pointer;
 			}
+
+		.table-users .header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.table-products .header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.header-title {
+			flex: 1; 
+			text-align: center;
+		}
 	</style>
 </head>
 
@@ -59,8 +76,10 @@
 </div>
 
 <div class="table-products">
-    <div class="header">Products</div>
-
+    <div class="header">
+		<input type="text" id="productSearch" placeholder="Search products">
+		<div class="header-title">Products</div>
+	</div>
     <table cellspacing="0">
         <tr>
 			<th> <a href="@Url.Action("AdminPage", "Admin", new { area = "Admin", sortOrder = ViewData["TitleSortParam"] })" style="display:flex;justify-content:center">Title</a></th>
@@ -88,7 +107,10 @@
 
 
 <div class="table-users">
-	<div class="header">Users</div>
+	<div class="header">
+		<input type="text" id="userSearch" class="d-flex" placeholder="Search users">
+		<div class="header-title">Users</div>
+	</div>
 	<table cellspacing="0">
 		<tr>
 			<th>ID</th>
@@ -116,3 +138,25 @@
 		}
 	</table>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#productSearch").on("input", function () {
+			var input = $(this).val().toLowerCase();
+			$(".table-products table tr").each(function () {
+				var rowText = $(this).text().toLowerCase();
+				$(this).toggle(rowText.indexOf(input) > -1);
+			});
+		});
+
+		$("#userSearch").on("input", function () {
+			var input = $(this).val().toLowerCase();
+			$(".table-users table tr").each(function () {
+				var rowText = $(this).text().toLowerCase();
+				$(this).toggle(rowText.indexOf(input) > -1);
+			});
+		});
+	});
+</script>
+
