@@ -8,6 +8,7 @@ using Shop_Site.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("default")));
@@ -28,6 +29,18 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+        options.ClientId = googleAuthNSection["ClientId"]!;
+        options.ClientSecret = googleAuthNSection["ClientSecret"]!;
+    }).AddFacebook(options =>
+    {
+        var facebookAuthNSection = builder.Configuration.GetSection("Authentication:Facebook");
+        options.AppId = facebookAuthNSection["AppId"]!;
+        options.AppSecret = facebookAuthNSection["AppSecret"]!;
+    });
 
 var app = builder.Build();
 

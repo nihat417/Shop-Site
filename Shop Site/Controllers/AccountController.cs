@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop_Site.Models;
 using Shop_Site.Models.ViewModel;
 using Shop_Site.Repository.Interfaces;
+using System.Security.Claims;
 
 namespace Shop_Site.Controllers
 {
@@ -19,8 +21,78 @@ namespace Shop_Site.Controllers
 			this._emailService = _emailService;
 		}
 
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
+        }
 
-		public IActionResult Register() =>View();
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (result.Succeeded)
+            {
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                else
+                    return RedirectToAction("Index", "Shop");
+            }
+
+            var userExists = await userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+
+            if (userExists != null)
+            {
+                var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+                if (signInResult.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+                    else
+                        return RedirectToAction("Index", "Shop");
+                }
+            }
+            else
+            {
+                var userEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var userFullName = info.Principal.FindFirstValue(ClaimTypes.Name);
+                var user = new AppUser { UserName = userEmail ,FullName = userFullName, Email = userEmail };
+
+                var createResult = await userManager.CreateAsync(user);
+                if (createResult.Succeeded)
+                {
+                    var addLoginResult = await userManager.AddLoginAsync(user, info);
+                    if (addLoginResult.Succeeded)
+                    {
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, Request.Scheme);
+
+                        var message = new Message(new string[] { user.Email }, "Confirmation Email Link", confirmationLink);
+                        _emailService.SendEmail(message);
+
+                        var nwvm = new RegisterViewModel { UserName = user.UserName };
+                        return View("RegisterFinish", nwvm);
+                    }
+                }
+            }
+            return RedirectToAction("Login");
+        }
+
+
+        public IActionResult Register() =>View();
   
         [HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel vm)

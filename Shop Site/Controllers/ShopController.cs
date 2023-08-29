@@ -101,7 +101,7 @@ namespace Shop_Site.Controllers
         {
             httpContextAccessor.HttpContext!.Session?.RemoveFromCart(id);
             var cart = httpContextAccessor.HttpContext.Session?.GetCart();
-            var totalPrice = CartItem.CalculateTotalPrice(cart);
+            var totalPrice = CartItem.CalculateTotalPrice(cart!);
             return PartialView("Cart", cart);
         }
 
@@ -113,11 +113,11 @@ namespace Shop_Site.Controllers
 
         public IActionResult BuyedProducts()
         {
-            var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+            var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity!.Name);
             if (user != null)
             {
                 var purchasedProducts = context.PurchasedProducts
-                    .Where(p => p.User.Id == user.Id)
+                    .Where(p => p.User!.Id == user.Id)
                     .ToList();
 
                 return PartialView(purchasedProducts);
@@ -135,7 +135,7 @@ namespace Shop_Site.Controllers
                 int productCount = productCounts[productId];
                 if (product != null && product.StockQuantity >= productCount)
                 {
-                    var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+                    var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity!.Name);
                     if (user != null)
                     {
                         var purchasedProduct = new PurchasedProduct
@@ -164,7 +164,7 @@ namespace Shop_Site.Controllers
             var refererUrl = HttpContext.Request.Headers["Referer"].ToString();
             if(product != null && product.StockQuantity > 0)
             {
-                var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity.Name);
+                var user = context.Users.SingleOrDefault(u => u.UserName == User.Identity!.Name);
                 if (user != null)
                 {
                     var purchasedProduct = new PurchasedProduct()

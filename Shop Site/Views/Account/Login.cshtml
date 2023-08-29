@@ -48,13 +48,13 @@
                 </div>
                 <div class="method">
                     <div class="method-item">
-                        <a href="#" class="btn-action">
+                        <a asp-controller="Account" asp-area="" asp-action="ExternalLogin" asp-route-provider="Google"  asp-route-returnUrl="@ViewContext.HttpContext.Request.PathBase" class="btn-action">
                             <i class="icons icons-google fab fa-google"></i>
                             <span>Sign in with Google</span>
                         </a>
                     </div>
                     <div class="method-item">
-                        <a href="#" class="btn-action">
+                        <a asp-controller="Account" asp-area="" asp-action="ExternalLogin" asp-route-provider="Facebook" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathBase" class="btn-action">
                             <i class="icons icons-facebook fab fa-facebook"></i>
                             <span>Sign in with Facebook</span>
                         </a>
